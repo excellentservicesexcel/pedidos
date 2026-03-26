@@ -423,23 +423,6 @@
 
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyCGxx9Zgwtw_DEDylPm4XM4UD4JSD2QAtw",
-            authDomain: "excellent-services-pedidos.firebaseapp.com",
-            databaseURL: "https://excellent-services-pedidos-default-rtdb.firebaseio.com",
-            projectId: "excellent-services-pedidos",
-            storageBucket: "excellent-services-pedidos.firebasestorage.app",
-            messagingSenderId: "690800692931",
-            appId: "1:690800692931:web:f41e83046ff016e6f41c76"
-        };
-        
-        const app = initializeApp(firebaseConfig);
-        console.log("Firebase Inicializado com Sucesso!");
-    </script>
-
     <script>
         const WHATSAPP_NUMBER = "11934664498";
         const ADMIN_PASSWORD = "1709";
@@ -450,7 +433,7 @@
         let tempImageBase64 = null;
         let countdownInterval;
 
-        // --- SISTEMA DE POP-UPS CUSTOMIZADOS (SUBSTITUI ALERT E CONFIRM) ---
+        // --- SISTEMA DE POP-UPS CUSTOMIZADOS ---
         function showCustomAlert(message, title = "Aviso", isSuccess = false) {
             document.getElementById('alert-title').innerText = title;
             document.getElementById('alert-title').style.color = isSuccess ? 'var(--success)' : 'var(--text-primary)';
@@ -479,37 +462,6 @@
             closeCustomConfirm();
         });
 
-
-        function loadSettings() {
-            try {
-                const storedItems = localStorage.getItem('excelItems');
-                excelItems = storedItems ? JSON.parse(storedItems) : [
-                    { id: 1, name: "Dashboards", price: 300.00 },
-                    { id: 2, name: "Análise de Dados", price: 250.00 },
-                    { id: 3, name: "Tela de Cadastro", price: 200.00 }
-                ];
-
-                const storedPackages = localStorage.getItem('packages');
-                packages = storedPackages ? JSON.parse(storedPackages) : [];
-
-                const storedImage = localStorage.getItem('homeImage');
-                if(storedImage) document.getElementById('editable-home-img').src = storedImage;
-
-                const storedPromo = localStorage.getItem('promoConfig');
-                if(storedPromo) {
-                    promoConfig = JSON.parse(storedPromo);
-                    if (!promoConfig.discounts) promoConfig.discounts = {};
-                }
-            } catch (e) {
-                console.error("Erro ao carregar dados:", e);
-            }
-
-            checkPromoStatus();
-            if(promoConfig.active) {
-                countdownInterval = setInterval(checkPromoStatus, 1000);
-            }
-        }
-
         // --- SISTEMA DE PROMOÇÃO ---
         function checkPromoStatus() {
             const promoBadge = document.getElementById('promo-badge-home');
@@ -525,7 +477,12 @@
 
             if (distance < 0) {
                 promoConfig.active = false;
-                localStorage.setItem('promoConfig', JSON.stringify(promoConfig));
+                
+                // Salvar status expirado no Firebase
+                if(window.firebaseDb) {
+                    window.firebaseSet(window.firebaseRef(window.firebaseDb, 'settings/promoConfig'), promoConfig);
+                }
+
                 document.getElementById('promo-countdown').style.display = 'none';
                 promoBadge.style.display = 'none';
                 clearInterval(countdownInterval);
@@ -591,6 +548,8 @@
             const container = document.getElementById('excel-checklist');
             container.innerHTML = ''; 
             
+            if(!excelItems || excelItems.length === 0) return;
+
             excelItems.forEach(item => {
                 const priceData = calculateItemPrice(item);
                 const isPromo = priceData.isPromo;
@@ -625,7 +584,7 @@
             const container = document.getElementById('packages-list');
             container.innerHTML = '';
 
-            if (packages.length === 0) {
+            if (!packages || packages.length === 0) {
                 container.innerHTML = '<p style="color:var(--text-secondary); font-size:14px; text-align:center;">Nenhum pacote disponível no momento.</p>';
                 return;
             }
@@ -638,10 +597,10 @@
                     ? `<div style="text-align: right;"><span class="price-old">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span><span class="price-new" style="color:${pkg.color};">R$ ${finalPrice.toFixed(2).replace('.', ',')}</span></div>`
                     : `<span class="check-item-price" style="font-size:15px; font-weight:bold; color:${pkg.color};">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span>`;
 
-                let includedNames = pkg.items.map(itemId => {
+                let includedNames = pkg.items ? pkg.items.map(itemId => {
                     let f = excelItems.find(e => e.id === itemId);
                     return f ? f.name : '';
-                }).filter(n => n !== '').join(', ');
+                }).filter(n => n !== '').join(', ') : '';
 
                 container.innerHTML += `
                     <div class="check-item" id="pkg-card-${pkg.id}" onclick="togglePackage(${pkg.id}, '${pkg.color}')" style="flex-direction: column; align-items: flex-start; gap: 10px;">
@@ -683,15 +642,19 @@
         function updateTotal() {
             let total = 0;
             
-            excelItems.forEach(item => {
-                const checkbox = document.getElementById(`item-${item.id}`);
-                if (checkbox && checkbox.checked) total += parseFloat(checkbox.getAttribute('data-price'));
-            });
+            if(excelItems) {
+                excelItems.forEach(item => {
+                    const checkbox = document.getElementById(`item-${item.id}`);
+                    if (checkbox && checkbox.checked) total += parseFloat(checkbox.getAttribute('data-price'));
+                });
+            }
 
-            packages.forEach(pkg => {
-                const checkbox = document.getElementById(`pkg-${pkg.id}`);
-                if (checkbox && checkbox.checked) total += parseFloat(checkbox.getAttribute('data-price'));
-            });
+            if(packages) {
+                packages.forEach(pkg => {
+                    const checkbox = document.getElementById(`pkg-${pkg.id}`);
+                    if (checkbox && checkbox.checked) total += parseFloat(checkbox.getAttribute('data-price'));
+                });
+            }
 
             const totalContainer = document.getElementById('total-container');
             const totalValue = document.getElementById('total-value');
@@ -831,6 +794,8 @@
             const promoListContainer = document.getElementById('admin-promo-items-list');
             listContainer.innerHTML = ''; promoListContainer.innerHTML = '';
 
+            if(!excelItems) return;
+
             excelItems.forEach(item => {
                 listContainer.innerHTML += `
                     <div class="admin-item-form" id="admin-row-${item.id}">
@@ -863,10 +828,12 @@
             const container = document.getElementById('admin-packages-list');
             container.innerHTML = '';
 
+            if(!packages) return;
+
             packages.forEach(pkg => {
                 let itemsCheckboxes = excelItems.map(item => `
                     <label style="display:flex; align-items:center; gap:5px; font-size:12px; margin-bottom:5px; color:var(--text-primary); font-weight:normal;">
-                        <input type="checkbox" class="pkg-item-check" data-item-id="${item.id}" ${pkg.items.includes(item.id) ? 'checked' : ''} style="width:14px; height:14px; accent-color:${pkg.color};">
+                        <input type="checkbox" class="pkg-item-check" data-item-id="${item.id}" ${pkg.items && pkg.items.includes(item.id) ? 'checked' : ''} style="width:14px; height:14px; accent-color:${pkg.color};">
                         ${item.name}
                     </label>
                 `).join('');
@@ -931,9 +898,47 @@
             if (file) reader.readAsDataURL(file);
         }
 
+        // --- SISTEMA DE ATUALIZAÇÃO VIA FIREBASE ---
+        window.updateAppDataFromFirebase = function(data) {
+            if (data) {
+                excelItems = data.excelItems || [];
+                packages = data.packages || [];
+                if (data.homeImage) {
+                    document.getElementById('editable-home-img').src = data.homeImage;
+                    tempImageBase64 = data.homeImage;
+                }
+                if (data.promoConfig) {
+                    promoConfig = data.promoConfig;
+                    if (!promoConfig.discounts) promoConfig.discounts = {};
+                }
+            } else {
+                // Caso o Banco de Dados esteja vazio na primeira vez
+                excelItems = [
+                    { id: 1, name: "Dashboards", price: 300.00 },
+                    { id: 2, name: "Análise de Dados", price: 250.00 },
+                    { id: 3, name: "Tela de Cadastro", price: 200.00 }
+                ];
+                packages = [];
+            }
+
+            checkPromoStatus();
+            clearInterval(countdownInterval);
+            if(promoConfig.active) {
+                countdownInterval = setInterval(checkPromoStatus, 1000);
+            }
+
+            // Atualiza as telas abertas em tempo real
+            if(document.getElementById('order-screen').style.display === 'flex') renderExcelChecklist();
+            if(document.getElementById('packages-screen').style.display === 'flex') renderPackagesList();
+        };
+
         function saveAllAdminChanges() {
+            if(!window.firebaseDb) {
+                showCustomAlert("Erro: Conexão com o servidor Firebase não estabelecida.");
+                return;
+            }
+
             excelItems.forEach(item => { const row = document.getElementById(`admin-row-${item.id}`); if (row) { item.name = row.querySelector('.edit-name').value; item.price = parseFloat(row.querySelector('.edit-price').value); } });
-            localStorage.setItem('excelItems', JSON.stringify(excelItems));
 
             packages.forEach(pkg => {
                 const row = document.getElementById(`admin-pkg-${pkg.id}`);
@@ -945,9 +950,8 @@
                     checks.forEach(check => { if(check.checked) pkg.items.push(parseInt(check.getAttribute('data-item-id'))); });
                 }
             });
-            localStorage.setItem('packages', JSON.stringify(packages));
 
-            if (tempImageBase64) { localStorage.setItem('homeImage', tempImageBase64); document.getElementById('editable-home-img').src = tempImageBase64; }
+            const currentImage = tempImageBase64 || document.getElementById('editable-home-img').src;
 
             promoConfig.active = document.getElementById('promo-toggle').checked;
             if (promoConfig.active) {
@@ -957,14 +961,52 @@
                 excelItems.forEach(item => { const typeSel = document.getElementById(`promo-type-${item.id}`); const valIn = document.getElementById(`promo-val-${item.id}`); if(typeSel && valIn && valIn.value !== "") { promoConfig.discounts[item.id] = { type: typeSel.value, value: parseFloat(valIn.value) }; } else { delete promoConfig.discounts[item.id]; } });
             }
 
-            localStorage.setItem('promoConfig', JSON.stringify(promoConfig));
-            clearInterval(countdownInterval); checkPromoStatus(); if(promoConfig.active) countdownInterval = setInterval(checkPromoStatus, 1000);
-            
-            showCustomAlert("Suas configurações foram salvas com sucesso!", "Sucesso", true); 
-            goBack('home-screen');
+            // Salvamento Seguro no Firebase em Tempo Real (Substitui o localStorage)
+            window.firebaseSet(window.firebaseRef(window.firebaseDb, 'settings'), {
+                excelItems: excelItems,
+                packages: packages,
+                promoConfig: promoConfig,
+                homeImage: currentImage
+            }).then(() => {
+                showCustomAlert("Suas configurações foram salvas na nuvem com sucesso!", "Sucesso", true); 
+                goBack('home-screen');
+            }).catch((error) => {
+                showCustomAlert("Erro ao salvar no servidor: " + error.message);
+            });
         }
+    </script>
 
-        window.onload = loadSettings;
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyCGxx9Zgwtw_DEDylPm4XM4UD4JSD2QAtw",
+            authDomain: "excellent-services-pedidos.firebaseapp.com",
+            databaseURL: "https://excellent-services-pedidos-default-rtdb.firebaseio.com",
+            projectId: "excellent-services-pedidos",
+            storageBucket: "excellent-services-pedidos.firebasestorage.app",
+            messagingSenderId: "690800692931",
+            appId: "1:690800692931:web:f41e83046ff016e6f41c76"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Exporta o banco de dados para os comandos gerais
+        window.firebaseDb = db;
+        window.firebaseSet = set;
+        window.firebaseRef = ref;
+
+        // Escuta o Banco de Dados em tempo real
+        const settingsRef = ref(db, 'settings');
+        onValue(settingsRef, (snapshot) => {
+            const data = snapshot.val();
+            // Sempre que houver uma alteração na nuvem, reflete pra tela
+            if(window.updateAppDataFromFirebase) {
+                window.updateAppDataFromFirebase(data);
+            }
+        });
     </script>
 </body>
 </html>
