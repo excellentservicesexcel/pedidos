@@ -284,6 +284,7 @@
             gap: 12px; 
         }
         .check-item input[type="checkbox"] { 
+            display: none; /* Ocultado conforme solicitado */
             accent-color: var(--primary-color); 
             width: 18px; 
             height: 18px; 
@@ -345,7 +346,7 @@
             border-radius: 10px; border: 1px solid var(--input-border); overflow: hidden; margin-bottom: 15px; transition: 0.3s;
         }
         .product-card.active { border-color: var(--primary-color); }
-        .product-img { width: 100%; height: 140px; object-fit: cover; cursor: pointer; }
+        .product-img { width: 100%; height: auto; max-height: 250px; object-fit: contain; cursor: pointer; } /* Ajuste de Proporção */
         .product-info { padding: 15px; cursor: pointer; }
         .product-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 
@@ -435,10 +436,7 @@
             border-color: rgba(0,206,201,0.3);
         }
         .about-card img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(255,255,255,0.02);
+            width: 100%; height: auto; max-height: 250px; object-fit: contain; border-bottom: 1px solid rgba(255,255,255,0.02); /* Ajuste de Proporção */
         }
         .about-card-body {
             padding: 20px;
@@ -580,8 +578,8 @@
             <button class="btn-home" onclick="openAboutScreen()">Sobre Nós</button>
         </div>
 
-        <div id="packages-screen" class="screen">
-            <button class="btn btn-outline" style="margin-bottom: 20px; padding: 10px;" onclick="goBack('home-screen')">⬅ Voltar</button>
+        <div id="packages-screen" class="screen" onclick="resetPackagesOutsideClick(event)">
+            <button class="btn btn-outline" style="margin-bottom: 20px; padding: 10px;" onclick="resetPackages(); goBack('home-screen')">⬅ Voltar</button>
             <span class="section-title" style="font-size: 18px; color: var(--text-primary);" id="ui-pkg-title">Nossos Pacotes Especiais</span>
             <p id="ui-pkg-desc" style="color: var(--text-secondary); font-size: 13px; margin-bottom: 20px; white-space: pre-line;">Escolha o combo que melhor atende à sua necessidade.</p>
             <div class="checklist-group" id="packages-list"></div>
@@ -664,7 +662,7 @@
         <div id="admin-panel-screen" class="screen">
             <h3 style="margin-bottom: 20px; text-align: center;">Painel Administrativo Mestre</h3>
             
-            <button class="btn" style="background-color: #3498db; color: white; border-radius: 12px; margin-bottom: 20px; padding: 20px; font-size: 18px; box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);" onclick="openAdminPages()">🛠️ Configurar Páginas (Sobre Nós)</button>
+            <button class="btn-home" style="border-radius: 12px; margin-bottom: 20px; padding: 20px; font-size: 18px;" onclick="openAdminPages()">Configurar Página</button>
 
             <div class="admin-section-divider">1. Textos e Imagem Início</div>
             <div class="admin-item-form">
@@ -771,7 +769,7 @@
             profileImg: "https://via.placeholder.com/150x150?text=Perfil",
             title: "Excellent Services",
             desc: "Especialistas em soluções corporativas.",
-            pageText: "", // Nova Variavel de Texto Livre
+            pageText: "", 
             cards: []
         };
 
@@ -856,7 +854,7 @@
             document.getElementById('admin-panel-screen').style.display = 'flex';
         }
 
-        function renderExcelChecklist() { /* Lógica Mantida Intacta */
+        function renderExcelChecklist() { 
             const container = document.getElementById('excel-checklist'); container.innerHTML = ''; 
             if(!excelItems || excelItems.length === 0) return;
             excelItems.forEach(item => {
@@ -868,14 +866,13 @@
                     const topics = item.description.split('\n').filter(t => t.trim() !== '');
                     if (topics.length > 0) { topicsHtml = `<div class="item-details-box" id="item-details-${item.id}"><ul>`; topics.forEach(t => { topicsHtml += `<li>${t}</li>`; }); topicsHtml += `</ul></div>`; }
                 }
-                container.innerHTML += `<div class="${itemClass}" id="container-item-${item.id}"><div class="check-item-header-row" onclick="toggleCustomItem(event, ${item.id})"><div class="check-item-info"><input type="checkbox" id="item-${item.id}" data-price="${priceData.finalPrice}"><div><span class="check-item-name" style="font-weight: bold;">${item.name}</span></div></div><div style="display:flex; align-items:center; gap:10px;">${priceHtml}${topicsHtml ? `<button class="btn-sm btn-outline" style="margin:0; padding:4px 8px; border-radius:4px; font-size:10px;" onclick="toggleItemDetails(event, ${item.id})">Detalhes ▼</button>` : ''}</div></div>${topicsHtml}</div>`;
+                container.innerHTML += `<div class="${itemClass}" id="container-item-${item.id}"><div class="check-item-header-row" onclick="toggleCustomItem(event, ${item.id})"><div class="check-item-info"><input type="checkbox" id="item-${item.id}" data-price="${priceData.finalPrice}" style="display:none;"><div><span class="check-item-name" style="font-weight: bold;">${item.name}</span></div></div><div style="display:flex; align-items:center; gap:10px;">${priceHtml}</div></div>${topicsHtml}</div>`;
             }); updateTotal();
         }
 
-        function toggleCustomItem(event, id) { if(event && event.target.tagName === 'INPUT') return; const checkbox = document.getElementById(`item-${id}`); const container = document.getElementById(`container-item-${id}`); if(!checkbox) return; checkbox.checked = !checkbox.checked; container.classList.toggle('active', checkbox.checked); updateTotal(); }
-        function toggleItemDetails(event, id) { event.stopPropagation(); const detailsBox = document.getElementById(`item-details-${id}`); if (detailsBox) { if (detailsBox.style.display === 'block') { detailsBox.style.display = 'none'; event.target.innerText = "Detalhes ▼"; } else { detailsBox.style.display = 'block'; event.target.innerText = "Ocultar ▲"; } } }
+        function toggleCustomItem(event, id) { if(event && event.target.tagName === 'INPUT') return; const checkbox = document.getElementById(`item-${id}`); const container = document.getElementById(`container-item-${id}`); if(!checkbox) return; checkbox.checked = !checkbox.checked; container.classList.toggle('active', checkbox.checked); const detailsBox = document.getElementById(`item-details-${id}`); if(detailsBox) detailsBox.style.display = checkbox.checked ? 'block' : 'none'; updateTotal(); }
 
-        function renderPackagesList() { /* Lógica Mantida Intacta */
+        function renderPackagesList() { 
             const container = document.getElementById('packages-list'); container.innerHTML = '';
             document.getElementById('ui-pkg-title').innerText = pkgTexts.title || "Nossos Pacotes Especiais"; document.getElementById('ui-pkg-desc').innerText = pkgTexts.desc || "";
             if (!packages || packages.length === 0) { container.innerHTML = '<p style="color:var(--text-secondary); font-size:14px; text-align:center;">Nenhum pacote disponível no momento.</p>'; return; }
@@ -885,21 +882,59 @@
                 let listIncluded = ''; let listExcluded = '';
                 excelItems.forEach(item => { const isIncluded = pkg.items && pkg.items.includes(item.id); if (isIncluded) { listIncluded += `<li>✅ ${item.name}</li>`; } else { listExcluded += `<li>❌ ${item.name}</li>`; } });
                 let detailsHtml = `<div class="pkg-full-details" id="pkg-details-${pkg.id}"><h4>🔹 Incluso no Pacote:</h4><ul class="pkg-list included">${listIncluded || '<li>Nenhum item marcado</li>'}</ul><h4>🔸 Não Incluso:</h4><ul class="pkg-list excluded">${listExcluded || '<li>Todos os itens inclusos</li>'}</ul></div>`;
-                container.innerHTML += `<div class="check-item" id="pkg-card-${pkg.id}" style="flex-direction: column; align-items: flex-start; gap: 10px;"><div class="check-item-header-row" onclick="togglePackage(event, ${pkg.id}, '${pkg.color}')"><div class="check-item-info"><input type="checkbox" id="pkg-${pkg.id}" data-price="${finalPrice}" style="accent-color: ${pkg.color}; pointer-events:none;"><span class="check-item-name" style="font-weight:bold; font-size:16px;">${pkg.name}</span></div>${priceHtml}</div><div style="width: 100%; display: flex; justify-content: flex-start; margin-top: 5px;"><button class="btn-sm btn-outline" style="border-radius:20px; color:${pkg.color}; border-color:${pkg.color}; font-weight:bold; width: 100%; background:rgba(0,0,0,0.3);" onclick="togglePkgDetailsFull(event, ${pkg.id})">Tudo de ${pkg.name} ▼</button></div>${detailsHtml}</div>`;
+                container.innerHTML += `<div class="check-item" id="pkg-card-${pkg.id}" style="flex-direction: column; align-items: flex-start; gap: 10px;"><div class="check-item-header-row" onclick="togglePackage(event, ${pkg.id}, '${pkg.color}')"><div class="check-item-info"><input type="checkbox" id="pkg-${pkg.id}" data-price="${finalPrice}" style="display:none;"><span class="check-item-name" style="font-weight:bold; font-size:16px;">${pkg.name}</span></div>${priceHtml}</div>${detailsHtml}</div>`;
             }); updateTotal();
         }
 
-        function togglePackage(event, pkgId, colorHex) { const checkbox = document.getElementById(`pkg-${pkgId}`); const card = document.getElementById(`pkg-card-${pkgId}`); checkbox.checked = !checkbox.checked; if (checkbox.checked) { card.style.borderColor = colorHex; card.style.boxShadow = `0 0 15px ${colorHex}60`; card.style.background = `linear-gradient(145deg, var(--input-bg), ${colorHex}20)`; } else { card.style.borderColor = 'var(--input-border)'; card.style.boxShadow = 'none'; card.style.background = 'var(--input-bg)'; } updateTotal(); }
-        function togglePkgDetailsFull(event, pkgId) { event.stopPropagation(); const detailsBox = document.getElementById(`pkg-details-${pkgId}`); const btn = event.target; if (detailsBox) { if (detailsBox.style.display === 'block') { detailsBox.style.display = 'none'; btn.innerText = btn.innerText.replace('▲', '▼').replace('Ocultar', 'Tudo de'); } else { detailsBox.style.display = 'block'; btn.innerText = `Ocultar Detalhes ▲`; } } }
+        // Função para Resetar a Seleção dos Pacotes
+        function resetPackages() {
+            if (!packages) return;
+            packages.forEach(p => {
+                const cb = document.getElementById(`pkg-${p.id}`);
+                const crd = document.getElementById(`pkg-card-${p.id}`);
+                const db = document.getElementById(`pkg-details-${p.id}`);
+                if (cb) cb.checked = false;
+                if (crd) { crd.style.borderColor = 'var(--input-border)'; crd.style.boxShadow = 'none'; crd.style.background = 'var(--input-bg)'; }
+                if (db) db.style.display = 'none';
+            });
+            updateTotal();
+        }
 
-        function renderProductsList() { /* Lógica Mantida Intacta */
+        // Reseta pacotes se clicar fora de um card na tela de pacotes
+        function resetPackagesOutsideClick(event) {
+            if (!event.target.closest('.check-item') && !event.target.closest('.btn-outline')) {
+                resetPackages();
+            }
+        }
+
+        // Lógica de rádio (Apenas 1 pacote por vez)
+        function togglePackage(event, pkgId, colorHex) { 
+            const checkbox = document.getElementById(`pkg-${pkgId}`); 
+            const isChecking = !checkbox.checked;
+            
+            // Limpa todos os pacotes antes
+            resetPackages();
+            
+            // Marca apenas o selecionado se a intenção era marcá-lo
+            if (isChecking) {
+                const card = document.getElementById(`pkg-card-${pkgId}`); 
+                checkbox.checked = true; 
+                card.style.borderColor = colorHex; 
+                card.style.boxShadow = `0 0 15px ${colorHex}60`; 
+                card.style.background = `linear-gradient(145deg, var(--input-bg), ${colorHex}20)`; 
+                const detailsBox = document.getElementById(`pkg-details-${pkgId}`); 
+                if(detailsBox) detailsBox.style.display = 'block'; 
+            }
+            updateTotal(); 
+        }
+
+        function renderProductsList() { 
             const container = document.getElementById('products-list'); container.innerHTML = '';
             if (!readyProducts || readyProducts.length === 0) { container.innerHTML = '<p style="color:var(--text-secondary); font-size:14px; text-align:center;">Nenhum produto pronto disponível no momento.</p>'; return; }
-            readyProducts.forEach(prod => { container.innerHTML += `<div class="product-card" id="prod-card-${prod.id}">${prod.img ? `<img src="${prod.img}" class="product-img" onclick="toggleProduct(event, ${prod.id})">` : ''}<div class="product-info" onclick="toggleProduct(event, ${prod.id})"><div class="product-header-row"><div style="display:flex; align-items:center; gap:10px;"><input type="checkbox" id="prod-${prod.id}" data-price="${prod.price}" style="width:18px;height:18px;accent-color:var(--primary-color);pointer-events:none;"><span style="font-weight:bold; color:var(--text-primary); font-size: 15px;">${prod.title}</span></div><span style="font-weight:bold; color:var(--primary-color);">R$ ${parseFloat(prod.price).toFixed(2).replace('.',',')}</span></div><p style="font-size:13px; color:var(--text-secondary);">${prod.desc}</p></div></div>`; }); updateTotal();
+            readyProducts.forEach(prod => { container.innerHTML += `<div class="product-card" id="prod-card-${prod.id}">${prod.img ? `<img src="${prod.img}" class="product-img" onclick="toggleProduct(event, ${prod.id})">` : ''}<div class="product-info" onclick="toggleProduct(event, ${prod.id})"><div class="product-header-row"><div style="display:flex; align-items:center; gap:10px;"><input type="checkbox" id="prod-${prod.id}" data-price="${prod.price}" style="display:none;"><span style="font-weight:bold; color:var(--text-primary); font-size: 15px;">${prod.title}</span></div><span style="font-weight:bold; color:var(--primary-color);">R$ ${parseFloat(prod.price).toFixed(2).replace('.',',')}</span></div><p style="font-size:13px; color:var(--text-secondary);">${prod.desc}</p></div></div>`; }); updateTotal();
         }
         function toggleProduct(event, id) { if(event && event.target.tagName === 'INPUT') return; const checkbox = document.getElementById(`prod-${id}`); const card = document.getElementById(`prod-card-${id}`); if(!checkbox) return; checkbox.checked = !checkbox.checked; card.classList.toggle('active', checkbox.checked); updateTotal(); }
 
-        // Nova Lógica Limpa e Profissional da Tela Sobre Nós
         function renderAboutScreen() {
             document.getElementById('ui-about-cover').style.backgroundImage = `url('${aboutConfig.coverImg}')`;
             document.getElementById('ui-about-profile').src = aboutConfig.profileImg;
@@ -917,10 +952,8 @@
             const cardsContainer = document.getElementById('ui-about-cards-list');
             cardsContainer.innerHTML = '';
 
-            // Reinjeta e força reflow para a animação disparar sempre que a tela abrir
             if (aboutConfig.cards && aboutConfig.cards.length > 0) {
                 aboutConfig.cards.forEach(card => {
-                    // Evita "undefined" nas classes e define o estilo corretamente
                     const effectClass = card.effect && card.effect !== 'none' ? card.effect : '';
                     cardsContainer.innerHTML += `
                         <div class="about-card ${effectClass}">
@@ -966,10 +999,12 @@
             packages.forEach(pkg => { const checkbox = document.getElementById(`pkg-${pkg.id}`); if (checkbox && checkbox.checked) { let finalP = parseFloat(checkbox.getAttribute('data-price')); itensSelecionados.push(`${iconePacote} *[PACOTE]* ${pkg.name} (R$ ${finalP.toFixed(2).replace('.', ',')})`); total += finalP; } });
             excelItems.forEach(item => { const checkbox = document.getElementById(`item-${item.id}`); if (checkbox && checkbox.checked) { let finalP = parseFloat(checkbox.getAttribute('data-price')); itensSelecionados.push(`${iconeItem} ${item.name} (R$ ${finalP.toFixed(2).replace('.', ',')})`); total += finalP; } });
             readyProducts.forEach(prod => { const checkbox = document.getElementById(`prod-${prod.id}`); if (checkbox && checkbox.checked) { let finalP = parseFloat(checkbox.getAttribute('data-price')); itensSelecionados.push(`🛍️ *[PRODUTO PRONTO]* ${prod.title} (R$ ${finalP.toFixed(2).replace('.', ',')})`); total += finalP; } });
-            let relatorio = `*NOVO PEDIDO EXCELLENT SERVICES*%0A%0A*Nome:* ${nome}%0A*Finalidade:* ${finalidade}%0A*Urgência:* ${urgencia}%0A%0A*Itens Selecionados:*%0A${itensSelecionados.join('%0A')}%0A%0A`;
-            if (descricao) relatorio += `*Descrição Adicional:*%0A${descricao}%0A%0A`;
-            relatorio += `*Total Estimado:* R$ ${total.toFixed(2).replace('.', ',')}%0A%0AAguardo retorno e analise de orçamento...`;
-            window.open(`https://wa.me/55${WHATSAPP_NUMBER}?text=${relatorio}`, '_blank'); closeCheckoutModal();
+            
+            let relatorio = `*NOVO PEDIDO EXCELLENT SERVICES*\n\n*Nome:* ${nome}\n*Finalidade:* ${finalidade}\n*Urgência:* ${urgencia}\n\n*Itens Selecionados:*\n${itensSelecionados.join('\n')}\n\n`;
+            if (descricao) relatorio += `*Descrição Adicional:*\n${descricao}\n\n`;
+            relatorio += `*Total Estimado:* R$ ${total.toFixed(2).replace('.', ',')}\n\nAguardo retorno e analise de orçamento...`;
+            
+            window.open(`https://wa.me/55${WHATSAPP_NUMBER}?text=${encodeURIComponent(relatorio)}`, '_blank'); closeCheckoutModal();
         }
 
         let headerClicks = 0;
@@ -980,7 +1015,6 @@
                 tempImageBase64 = null; tempAboutCoverBase64 = null; tempAboutProfileBase64 = null; tempNewCardBase64 = null; tempNewProdBase64 = null;
                 document.getElementById('admin-home-title').value = homeTexts.title || ""; document.getElementById('admin-home-desc').value = homeTexts.desc || ""; document.getElementById('admin-pkg-title').value = pkgTexts.title || ""; document.getElementById('admin-pkg-desc').value = pkgTexts.desc || "";
                 
-                // Preenchendo dados do About Pages Screen
                 document.getElementById('admin-about-title').value = aboutConfig.title || ""; 
                 document.getElementById('admin-about-desc').value = aboutConfig.desc || "";
                 document.getElementById('admin-about-page-text').value = aboutConfig.pageText || "";
@@ -1031,7 +1065,6 @@
             } else { container.innerHTML = '<span style="font-size:12px; color:var(--text-secondary);">Nenhum card adicionado.</span>'; }
         }
 
-        // Lógica de adição de cards arrumada (Sempre vai empurrar o novo pro array original)
         function addAboutCardTemp() {
             const title = document.getElementById('new-card-title').value;
             const desc = document.getElementById('new-card-desc').value;
@@ -1094,13 +1127,11 @@
 
             homeTexts.title = document.getElementById('admin-home-title').value; homeTexts.desc = document.getElementById('admin-home-desc').value; pkgTexts.title = document.getElementById('admin-pkg-title').value; pkgTexts.desc = document.getElementById('admin-pkg-desc').value;
 
-            // Salvar configurações do ABOUT US
             aboutConfig.title = document.getElementById('admin-about-title').value;
             aboutConfig.desc = document.getElementById('admin-about-desc').value;
-            aboutConfig.pageText = document.getElementById('admin-about-page-text').value; // Salva o texto livre
+            aboutConfig.pageText = document.getElementById('admin-about-page-text').value; 
             if(tempAboutCoverBase64) aboutConfig.coverImg = tempAboutCoverBase64;
             if(tempAboutProfileBase64) aboutConfig.profileImg = tempAboutProfileBase64;
-            // Os cards já foram adicionados no objeto global `aboutConfig.cards` pela função `addAboutCardTemp()`
 
             const currentImage = tempImageBase64 || document.getElementById('editable-home-img').src;
 
