@@ -321,78 +321,28 @@
             display: block; 
         }
 
-        /* --- DETALHES DOS ITENS (TÓPICOS) --- */
         .item-details-box {
-            display: none;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed var(--input-border);
-            animation: fadeIn 0.3s ease;
+            display: none; margin-top: 15px; padding-top: 15px;
+            border-top: 1px dashed var(--input-border); animation: fadeIn 0.3s ease;
         }
-        .item-details-box ul {
-            list-style-type: none;
-            padding-left: 5px;
-        }
-        .item-details-box li {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-        }
-        .item-details-box li::before {
-            content: '🔹';
-            font-size: 10px;
-            margin-top: 2px;
-        }
+        .item-details-box ul { list-style-type: none; padding-left: 5px; }
+        .item-details-box li { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; display: flex; align-items: flex-start; gap: 8px; }
+        .item-details-box li::before { content: '🔹'; font-size: 10px; margin-top: 2px; }
 
-        /* --- DETALHES DO PACOTE (INCLUSO / NÃO INCLUSO) --- */
         .pkg-full-details {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.05);
-            animation: fadeIn 0.3s ease;
+            display: none; margin-top: 15px; padding: 15px; background: rgba(0,0,0,0.2);
+            border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); animation: fadeIn 0.3s ease;
         }
-        .pkg-full-details h4 {
-            font-size: 12px;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .pkg-full-details h4:first-child {
-            margin-top: 0;
-        }
-        .pkg-list {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 10px;
-        }
-        .pkg-list li {
-            font-size: 13px;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .pkg-full-details h4 { font-size: 12px; color: var(--text-primary); margin-bottom: 8px; margin-top: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .pkg-full-details h4:first-child { margin-top: 0; }
+        .pkg-list { list-style: none; padding: 0; margin-bottom: 10px; }
+        .pkg-list li { font-size: 13px; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
         .pkg-list.included li { color: var(--success); }
         .pkg-list.excluded li { color: var(--danger); opacity: 0.7; }
 
-        /* --- ESTILOS DE PRODUTOS PRONTOS --- */
         .product-card {
-            display: flex;
-            flex-direction: column;
-            background-color: var(--input-bg);
-            border-radius: 10px;
-            border: 1px solid var(--input-border);
-            overflow: hidden;
-            margin-bottom: 15px;
-            transition: 0.3s;
+            display: flex; flex-direction: column; background-color: var(--input-bg);
+            border-radius: 10px; border: 1px solid var(--input-border); overflow: hidden; margin-bottom: 15px; transition: 0.3s;
         }
         .product-card.active { border-color: var(--primary-color); }
         .product-img { width: 100%; height: 140px; object-fit: cover; cursor: pointer; }
@@ -400,113 +350,137 @@
         .product-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 
         /* ==========================================================================
-           TELA SOBRE NÓS
+           TELA SOBRE NÓS - DESIGN PROFISSIONAL
            ========================================================================== */
         #about-screen {
             padding: 0;
             padding-bottom: 120px;
+            background-color: var(--bg-dark); /* Fundo um pouco mais escuro para contraste */
         }
         .about-cover {
             width: 100%;
-            height: 160px;
+            height: 180px;
             background-color: var(--input-bg);
             background-size: cover;
             background-position: center;
             position: relative;
         }
+        .about-cover::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 60%;
+            background: linear-gradient(to top, var(--bg-dark), transparent);
+        }
         .about-profile-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: -60px;
+            margin-top: -70px;
             position: relative;
             z-index: 2;
             padding: 0 20px;
             text-align: center;
         }
         .about-profile-img {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            border: 4px solid var(--bg-app);
+            border: 5px solid var(--bg-dark);
             object-fit: cover;
             background-color: var(--input-bg);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
             margin-bottom: 15px;
         }
         .about-title {
-            font-size: 22px;
-            font-weight: bold;
+            font-size: 26px;
+            font-weight: 800;
             color: var(--text-primary);
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
         }
         .about-desc {
-            font-size: 14px;
+            font-size: 15px;
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 25px;
+        }
+        .about-free-text-container {
+            padding: 0 25px;
+            margin-bottom: 35px;
+            font-size: 15px;
             color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 30px;
+            line-height: 1.6;
+            text-align: center;
+            white-space: pre-line;
         }
         .about-cards-container {
-            padding: 0 20px;
+            padding: 0 25px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
         .about-card {
-            background-color: var(--input-bg);
-            border-radius: 12px;
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border-radius: 16px;
             overflow: hidden;
-            border: 1px solid var(--input-border);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             display: flex;
             flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,206,201,0.15);
+            border-color: rgba(0,206,201,0.3);
         }
         .about-card img {
             width: 100%;
-            height: 150px;
+            height: 160px;
             object-fit: cover;
-            background-color: var(--header-bg);
+            border-bottom: 1px solid rgba(255,255,255,0.02);
         }
         .about-card-body {
-            padding: 15px;
+            padding: 20px;
         }
         .about-card-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 8px;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .about-card-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 16px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
         }
         .about-card-desc {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-secondary);
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        /* Botão Flutuante Sobre Nós */
         .btn-floating-back {
-            position: fixed;
-            bottom: 25px;
-            right: 20px;
-            background-color: var(--bg-app);
-            color: var(--text-primary);
-            border: 2px solid var(--primary-color);
-            border-radius: 30px;
-            padding: 10px 20px;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            cursor: pointer;
-            z-index: 1000;
-            transition: 0.2s;
+            position: fixed; bottom: 25px; right: 20px; background-color: var(--bg-app);
+            color: var(--text-primary); border: 2px solid var(--primary-color);
+            border-radius: 30px; padding: 10px 20px; font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); cursor: pointer; z-index: 1000; transition: 0.2s;
         }
         .btn-floating-back:active { transform: scale(0.95); }
 
-        /* Efeitos Especiais para Cards */
+        /* Efeitos Especiais Corrigidos para Cards */
         .effect-fadeIn { animation: cardFadeIn 1s ease forwards; opacity: 0; }
-        .effect-pulse { animation: cardPulse 2s infinite ease-in-out; }
-        .effect-slideUp { animation: cardSlideUp 0.8s ease forwards; opacity: 0; transform: translateY(30px); }
+        .effect-pulse { animation: cardPulse 2s infinite ease-in-out forwards; opacity: 1; }
+        .effect-slideUp { animation: cardSlideUp 0.8s ease forwards; opacity: 0; transform: translateY(40px); }
 
         @keyframes cardFadeIn { to { opacity: 1; } }
-        @keyframes cardPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+        @keyframes cardPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
         @keyframes cardSlideUp { to { opacity: 1; transform: translateY(0); } }
 
         /* ==========================================================================
@@ -536,7 +510,6 @@
         .form-group { margin-bottom: 15px; text-align: left; }
         label { font-size: 13px; color: var(--text-label); font-weight: 500; display: block; margin-bottom: 6px; }
 
-        /* Total Flutuante & Botão de Checkout Rápido */
         #total-wrapper-global {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             width: 100%; max-width: 420px; padding: 0 20px;
@@ -558,8 +531,8 @@
         /* ==========================================================================
            PAINEL ADMINISTRATIVO
            ========================================================================== */
-        #admin-auth-screen, #admin-panel-screen { justify-content: center; align-items: center; }
-        #admin-panel-screen { justify-content: flex-start; overflow-y: auto; align-items: stretch; padding-bottom: 40px;}
+        #admin-auth-screen, #admin-panel-screen, #admin-pages-screen { justify-content: center; align-items: center; }
+        #admin-panel-screen, #admin-pages-screen { justify-content: flex-start; overflow-y: auto; align-items: stretch; padding-bottom: 40px;}
 
         .admin-box { background-color: var(--header-bg); padding: 30px; border-radius: 15px; border: 1px solid var(--input-border); width: 90%; text-align: center; margin: 0 auto;}
         .admin-box h3 { margin-bottom: 20px; color: var(--text-primary); font-size: 18px;}
@@ -580,14 +553,7 @@
         .time-inputs { display: flex; gap: 10px; align-items: center; margin-top: 5px; }
         .time-inputs input { text-align: center; font-size: 16px; padding: 10px; }
 
-        .admin-section-divider {
-            margin: 30px 0 15px 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--input-border);
-            color: var(--primary-color);
-            font-size: 18px;
-            font-weight: bold;
-        }
+        .admin-section-divider { margin: 30px 0 15px 0; padding-bottom: 10px; border-bottom: 2px solid var(--input-border); color: var(--primary-color); font-size: 18px; font-weight: bold; }
 
     </style>
 </head>
@@ -616,10 +582,8 @@
 
         <div id="packages-screen" class="screen">
             <button class="btn btn-outline" style="margin-bottom: 20px; padding: 10px;" onclick="goBack('home-screen')">⬅ Voltar</button>
-            
             <span class="section-title" style="font-size: 18px; color: var(--text-primary);" id="ui-pkg-title">Nossos Pacotes Especiais</span>
             <p id="ui-pkg-desc" style="color: var(--text-secondary); font-size: 13px; margin-bottom: 20px; white-space: pre-line;">Escolha o combo que melhor atende à sua necessidade.</p>
-            
             <div class="checklist-group" id="packages-list"></div>
         </div>
 
@@ -642,8 +606,10 @@
             <div class="about-profile-container">
                 <img src="https://via.placeholder.com/150x150?text=Perfil" id="ui-about-profile" class="about-profile-img" alt="Perfil">
                 <h2 class="about-title" id="ui-about-title">Excellent Services</h2>
-                <p class="about-desc" id="ui-about-desc">Transformando dados em decisões inteligentes. Especialistas em soluções corporativas.</p>
+                <p class="about-desc" id="ui-about-desc">Especialistas em soluções corporativas.</p>
             </div>
+
+            <div class="about-free-text-container" id="ui-about-free-text"></div>
 
             <div class="about-cards-container" id="ui-about-cards-list"></div>
             
@@ -659,36 +625,10 @@
             <div class="modal-content">
                 <button class="close-modal" onclick="closeCheckoutModal()">&times;</button>
                 <h3 style="margin-bottom: 20px; color: var(--text-primary); text-align: center;">Detalhes do Pedido</h3>
-                
-                <div class="form-group">
-                    <label for="nome">Seu Nome:</label>
-                    <input type="text" id="nome" placeholder="Digite seu nome">
-                </div>
-
-                <div class="form-group">
-                    <label for="finalidade">Finalidade:</label>
-                    <select id="finalidade">
-                        <option value="" disabled selected>Empresarial ou Pessoal?</option>
-                        <option value="empresarial">Uso Empresarial</option>
-                        <option value="pessoal">Uso Pessoal</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="urgencia">Urgência:</label>
-                    <select id="urgencia">
-                        <option value="" disabled selected>Selecione o nível</option>
-                        <option value="baixa">Baixa</option>
-                        <option value="media">Média</option>
-                        <option value="alta">Alta</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="descricao">Detalhes / Descrição:</label>
-                    <textarea id="descricao" placeholder="Escreva necessidades extras..."></textarea>
-                </div>
-
+                <div class="form-group"><label for="nome">Seu Nome:</label><input type="text" id="nome" placeholder="Digite seu nome"></div>
+                <div class="form-group"><label for="finalidade">Finalidade:</label><select id="finalidade"><option value="" disabled selected>Empresarial ou Pessoal?</option><option value="empresarial">Uso Empresarial</option><option value="pessoal">Uso Pessoal</option></select></div>
+                <div class="form-group"><label for="urgencia">Urgência:</label><select id="urgencia"><option value="" disabled selected>Selecione o nível</option><option value="baixa">Baixa</option><option value="media">Média</option><option value="alta">Alta</option></select></div>
+                <div class="form-group"><label for="descricao">Detalhes / Descrição:</label><textarea id="descricao" placeholder="Escreva necessidades extras..."></textarea></div>
                 <button class="btn btn-success" style="margin-top: 5px;" onclick="submitOrderToWhatsApp()">Enviar para WhatsApp</button>
             </div>
         </div>
@@ -724,106 +664,73 @@
         <div id="admin-panel-screen" class="screen">
             <h3 style="margin-bottom: 20px; text-align: center;">Painel Administrativo Mestre</h3>
             
-            <div class="admin-section-divider">1. Textos e Imagem Início</div>
-            
-            <div class="admin-item-form">
-                <label>Imagem de Início (Logo):</label>
-                <input type="file" accept="image/*" onchange="previewImageTemp(event)" style="margin-bottom: 10px;">
-                
-                <label>Título da Tela Inicial:</label>
-                <input type="text" id="admin-home-title" placeholder="Ex: Soluções sob medida" style="margin-bottom: 10px;">
-                
-                <label>Descrição da Tela Inicial:</label>
-                <textarea id="admin-home-desc" placeholder="Ex: Sistemas e planilhas..." style="min-height: 60px;"></textarea>
-            </div>
+            <button class="btn" style="background-color: #3498db; color: white; border-radius: 12px; margin-bottom: 20px; padding: 20px; font-size: 18px; box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);" onclick="openAdminPages()">🛠️ Configurar Páginas (Sobre Nós)</button>
 
+            <div class="admin-section-divider">1. Textos e Imagem Início</div>
             <div class="admin-item-form">
-                <label>Título da Tela de Pacotes:</label>
-                <input type="text" id="admin-pkg-title" placeholder="Ex: Nossos Pacotes Especiais" style="margin-bottom: 10px;">
-                
-                <label>Descrição da Tela de Pacotes:</label>
-                <textarea id="admin-pkg-desc" placeholder="Ex: Escolha o combo ideal..." style="min-height: 60px;"></textarea>
+                <label>Imagem de Início (Logo):</label><input type="file" accept="image/*" onchange="previewImageTemp(event)" style="margin-bottom: 10px;">
+                <label>Título da Tela Inicial:</label><input type="text" id="admin-home-title" placeholder="Ex: Soluções sob medida" style="margin-bottom: 10px;">
+                <label>Descrição da Tela Inicial:</label><textarea id="admin-home-desc" placeholder="Ex: Sistemas e planilhas..." style="min-height: 60px;"></textarea>
+            </div>
+            <div class="admin-item-form">
+                <label>Título da Tela de Pacotes:</label><input type="text" id="admin-pkg-title" placeholder="Ex: Nossos Pacotes Especiais" style="margin-bottom: 10px;">
+                <label>Descrição da Tela de Pacotes:</label><textarea id="admin-pkg-desc" placeholder="Ex: Escolha o combo ideal..." style="min-height: 60px;"></textarea>
             </div>
 
             <div class="admin-section-divider">2. Promoções</div>
             <div class="admin-item-form">
-                <div class="switch-container">
-                    <span style="font-size: 14px; color: var(--text-primary); font-weight:bold;">Ativar Promoção Especial?</span>
-                    <label class="switch">
-                        <input type="checkbox" id="promo-toggle" onchange="togglePromoSection()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-
+                <div class="switch-container"><span style="font-size: 14px; color: var(--text-primary); font-weight:bold;">Ativar Promoção Especial?</span><label class="switch"><input type="checkbox" id="promo-toggle" onchange="togglePromoSection()"><span class="slider"></span></label></div>
                 <div id="promo-config-section">
-                    <label>Data de Fim da Promoção:</label>
-                    <input type="date" id="promo-end-date" style="margin-bottom: 10px;">
-                    
-                    <label>Horário de Fim (Separado):</label>
-                    <div class="time-inputs">
-                        <input type="number" id="promo-end-hour" inputmode="numeric" placeholder="Hora (0-23)" min="0" max="23">
-                        <span style="font-size: 20px; font-weight: bold;">:</span>
-                        <input type="number" id="promo-end-minute" inputmode="numeric" placeholder="Min (0-59)" min="0" max="59">
-                    </div>
-                    
+                    <label>Data de Fim da Promoção:</label><input type="date" id="promo-end-date" style="margin-bottom: 10px;">
+                    <label>Horário de Fim (Separado):</label><div class="time-inputs"><input type="number" id="promo-end-hour" inputmode="numeric" placeholder="Hora (0-23)" min="0" max="23"><span style="font-size: 20px; font-weight: bold;">:</span><input type="number" id="promo-end-minute" inputmode="numeric" placeholder="Min (0-59)" min="0" max="59"></div>
                     <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
-                    
-                    <label style="margin-bottom: 10px; color: var(--promo-gold);">Descontos dos Itens Personalizados:</label>
-                    <div id="admin-promo-items-list"></div>
+                    <label style="margin-bottom: 10px; color: var(--promo-gold);">Descontos dos Itens Personalizados:</label><div id="admin-promo-items-list"></div>
                 </div>
             </div>
 
             <div class="admin-section-divider">3. Pacotes</div>
             <div class="admin-item-form" style="border-color: #ffd700;">
-                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">Crie pacotes. Os itens marcados aparecerão como "Inclusos" e os não marcados como "Não Inclusos" nos tópicos detalhados.</p>
-
+                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">Crie pacotes. Os itens marcados aparecerão como "Inclusos".</p>
                 <input type="text" id="new-pkg-name" placeholder="Nome do Pacote (Ex: Básico)" style="margin-bottom: 10px;">
-                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                    <input type="number" id="new-pkg-price" placeholder="Preço Normal" style="width: 50%;">
-                    <input type="number" id="new-pkg-promo" placeholder="Preço Promo" style="width: 50%;">
-                </div>
-                <select id="new-pkg-color" style="margin-bottom: 10px;">
-                    <option value="#bdc3c7">Cinza (Básico)</option>
-                    <option value="#ffd700">Dourado (Premium)</option>
-                    <option value="#00cec9">Verde-Água</option>
-                    <option value="#3498db">Azul</option>
-                    <option value="#9b59b6">Roxo</option>
-                </select>
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;"><input type="number" id="new-pkg-price" placeholder="Preço Normal" style="width: 50%;"><input type="number" id="new-pkg-promo" placeholder="Preço Promo" style="width: 50%;"></div>
+                <select id="new-pkg-color" style="margin-bottom: 10px;"><option value="#bdc3c7">Cinza (Básico)</option><option value="#ffd700">Dourado (Premium)</option><option value="#00cec9">Verde-Água</option><option value="#3498db">Azul</option><option value="#9b59b6">Roxo</option></select>
                 <button class="btn btn-outline" style="color: #ffd700; border-color: #ffd700;" onclick="addNewPackageTemp()">+ Adicionar Novo Pacote</button>
-                
                 <div id="admin-packages-list" style="margin-top: 15px;"></div>
             </div>
 
             <div class="admin-section-divider">4. Itens Personalizados</div>
             <div class="admin-item-form">
-                <input type="text" id="new-item-name" placeholder="Nome do Item (Ex: Automação)" style="margin-bottom: 10px;">
-                <input type="number" id="new-item-price" placeholder="Preço Base (Ex: 150.00)" style="margin-bottom: 10px;">
-                <textarea id="new-item-desc" placeholder="Descrição/Tópicos do que está incluso (pule linhas para separar)" style="margin-bottom: 10px;"></textarea>
-                <button class="btn btn-outline" style="color: var(--success); border-color: var(--success);" onclick="addNewItemTemp()">+ Adicionar Item</button>
+                <input type="text" id="new-item-name" placeholder="Nome do Item (Ex: Automação)" style="margin-bottom: 10px;"><input type="number" id="new-item-price" placeholder="Preço Base (Ex: 150.00)" style="margin-bottom: 10px;"><textarea id="new-item-desc" placeholder="Descrição/Tópicos do que está incluso (pule linhas para separar)" style="margin-bottom: 10px;"></textarea><button class="btn btn-outline" style="color: var(--success); border-color: var(--success);" onclick="addNewItemTemp()">+ Adicionar Item</button>
             </div>
+            <div style="margin-top: 10px; text-align: left;"><label style="margin-bottom: 10px; display: block; color: var(--primary-color);">Editar Itens Existentes:</label><div id="admin-items-list"></div></div>
 
-            <div style="margin-top: 10px; text-align: left;">
-                <label style="margin-bottom: 10px; display: block; color: var(--primary-color);">Editar Itens Existentes:</label>
-                <div id="admin-items-list"></div>
-            </div>
-
-            <div class="admin-section-divider">5. Página "Sobre Nós"</div>
+            <div class="admin-section-divider">5. Produtos Prontos</div>
             <div class="admin-item-form">
-                <label>Foto de Capa (Banner):</label>
-                <input type="file" accept="image/*" onchange="processImageFile(event, 'about-cover')" style="margin-bottom: 10px;">
-                
-                <label>Foto de Perfil:</label>
-                <input type="file" accept="image/*" onchange="processImageFile(event, 'about-profile')" style="margin-bottom: 10px;">
+                <label>Imagem do Produto:</label><input type="file" accept="image/*" onchange="previewProdTemp(event)" style="margin-bottom: 10px;"><input type="text" id="new-prod-title" placeholder="Título (Ex: Planilha de Fluxo)" style="margin-bottom: 10px;"><textarea id="new-prod-desc" placeholder="Descrição curta do produto" style="margin-bottom: 10px;"></textarea><input type="number" id="new-prod-price" placeholder="Preço (Ex: 50.00)" style="margin-bottom: 10px;"><button class="btn btn-outline" style="color: var(--primary-color); border-color: var(--primary-color);" onclick="addNewProductTemp()">+ Adicionar Produto</button>
+                <div id="admin-products-list" style="margin-top: 15px; border-top: 1px solid var(--input-border); padding-top: 10px;"></div>
+            </div>
 
-                <label>Título da Página (Nome da Empresa):</label>
-                <input type="text" id="admin-about-title" placeholder="Ex: Excelente Services" style="margin-bottom: 10px;">
+            <button class="btn btn-master-save" onclick="saveAllAdminChanges()">💾 SALVAR TUDO</button>
+            <button class="btn btn-outline" style="margin-bottom: 40px;" onclick="goBack('home-screen')">Sair sem Salvar</button>
+        </div>
+
+        <div id="admin-pages-screen" class="screen">
+            <h3 style="margin-bottom: 20px; text-align: center; color: #3498db;">Configuração da Página "Sobre Nós"</h3>
+            
+            <div class="admin-item-form">
+                <label>Foto de Capa (Banner):</label><input type="file" accept="image/*" onchange="processImageFile(event, 'about-cover')" style="margin-bottom: 10px;">
+                <label>Foto de Perfil (Logo Empresa):</label><input type="file" accept="image/*" onchange="processImageFile(event, 'about-profile')" style="margin-bottom: 10px;">
+                <label>Título da Página (Nome da Empresa):</label><input type="text" id="admin-about-title" placeholder="Ex: Excelente Services" style="margin-bottom: 10px;">
+                <label>Slogan (Subtítulo curto):</label><input type="text" id="admin-about-desc" placeholder="Breve resumo..." style="margin-bottom: 15px;">
                 
-                <label>Descrição (Quem somos):</label>
-                <textarea id="admin-about-desc" placeholder="Breve resumo da empresa..."></textarea>
+                <hr style="border-color: rgba(255,255,255,0.05); margin-bottom: 15px;">
+                
+                <label style="color: var(--primary-color);">Texto Livre na Página (Escreva o que quiser, fora dos cards):</label>
+                <textarea id="admin-about-page-text" placeholder="Escreva a história da empresa, manifesto, etc..." style="min-height: 120px; margin-bottom: 10px;"></textarea>
             </div>
 
             <div class="admin-item-form" style="border-color: var(--primary-color);">
-                <label style="color: var(--primary-color); font-weight: bold; margin-bottom: 10px;">Adicionar Novo Card (Serviços/Valores)</label>
+                <label style="color: var(--primary-color); font-weight: bold; margin-bottom: 10px;">Criar Novo Card (Serviços/Valores)</label>
                 <input type="file" id="new-card-img" accept="image/*" style="margin-bottom: 10px;">
                 <input type="text" id="new-card-title" placeholder="Título do Card (Ex: Missão)" style="margin-bottom: 10px;">
                 <textarea id="new-card-desc" placeholder="Descrição do card..." style="margin-bottom: 10px; min-height: 50px;"></textarea>
@@ -839,20 +746,7 @@
                 <div id="admin-about-cards-list" style="margin-top: 15px; border-top: 1px solid var(--input-border); padding-top: 10px;"></div>
             </div>
 
-            <div class="admin-section-divider">6. Produtos Prontos</div>
-            <div class="admin-item-form">
-                <label>Imagem do Produto:</label>
-                <input type="file" accept="image/*" onchange="previewProdTemp(event)" style="margin-bottom: 10px;">
-                <input type="text" id="new-prod-title" placeholder="Título (Ex: Planilha de Fluxo)" style="margin-bottom: 10px;">
-                <textarea id="new-prod-desc" placeholder="Descrição curta do produto" style="margin-bottom: 10px;"></textarea>
-                <input type="number" id="new-prod-price" placeholder="Preço (Ex: 50.00)" style="margin-bottom: 10px;">
-                <button class="btn btn-outline" style="color: var(--primary-color); border-color: var(--primary-color);" onclick="addNewProductTemp()">+ Adicionar Produto</button>
-                
-                <div id="admin-products-list" style="margin-top: 15px; border-top: 1px solid var(--input-border); padding-top: 10px;"></div>
-            </div>
-
-            <button class="btn btn-master-save" onclick="saveAllAdminChanges()">💾 SALVAR TUDO</button>
-            <button class="btn btn-outline" style="margin-bottom: 40px;" onclick="goBack('home-screen')">Sair sem Salvar</button>
+            <button class="btn btn-success" style="margin-top: 20px; font-size: 16px;" onclick="closeAdminPages()">Pronto, voltar ao Painel Mestre</button>
         </div>
 
     </div>
@@ -864,46 +758,37 @@
         const WHATSAPP_NUMBER = "11934664498";
         const ADMIN_PASSWORD = "1709";
 
-        // Estruturas de Dados Padrão (serão substituídas pelo Firebase)
         let excelItems = [];
         let packages = [];
-        let readyProducts = []; // NOVA ESTRUTURA PARA PRODUTOS PRONTOS
+        let readyProducts = []; 
         let promoConfig = { active: false, endTimestamp: null, discounts: {} };
         
-        // Textos Dinâmicos
         let homeTexts = { title: "Soluções sob medida", desc: "Sistemas, dashboards e planilhas de alto nível." };
         let pkgTexts = { title: "Nossos Pacotes Especiais", desc: "Escolha o combo que melhor atende à sua necessidade." };
         
-        // Sobre Nós Config
         let aboutConfig = {
             coverImg: "https://via.placeholder.com/600x200?text=Capa+Profissional",
             profileImg: "https://via.placeholder.com/150x150?text=Perfil",
             title: "Excellent Services",
-            desc: "Transformando dados em decisões inteligentes. Especialistas em soluções corporativas.",
+            desc: "Especialistas em soluções corporativas.",
+            pageText: "", // Nova Variavel de Texto Livre
             cards: []
         };
 
-        // Variáveis Temporárias Admin
         let tempImageBase64 = null;
         let tempAboutCoverBase64 = null;
         let tempAboutProfileBase64 = null;
         let tempNewCardBase64 = null;
-        let tempNewProdBase64 = null; // TEMP PARA IMAGEM DO PRODUTO
+        let tempNewProdBase64 = null; 
         let countdownInterval;
 
-        // ==========================================================================
-        // SISTEMA DE POP-UPS CUSTOMIZADOS
-        // ==========================================================================
         function showCustomAlert(message, title = "Aviso", isSuccess = false) {
             document.getElementById('alert-title').innerText = title;
             document.getElementById('alert-title').style.color = isSuccess ? 'var(--success)' : 'var(--text-primary)';
             document.getElementById('alert-message').innerText = message;
             document.getElementById('custom-alert-modal').style.display = 'flex';
         }
-
-        function closeCustomAlert() {
-            document.getElementById('custom-alert-modal').style.display = 'none';
-        }
+        function closeCustomAlert() { document.getElementById('custom-alert-modal').style.display = 'none'; }
 
         let confirmActionCallback = null;
         function showCustomConfirm(message, callback) {
@@ -911,92 +796,49 @@
             confirmActionCallback = callback;
             document.getElementById('custom-confirm-modal').style.display = 'flex';
         }
+        function closeCustomConfirm() { document.getElementById('custom-confirm-modal').style.display = 'none'; confirmActionCallback = null; }
+        document.getElementById('confirm-btn-yes').addEventListener('click', () => { if (confirmActionCallback) confirmActionCallback(); closeCustomConfirm(); });
 
-        function closeCustomConfirm() {
-            document.getElementById('custom-confirm-modal').style.display = 'none';
-            confirmActionCallback = null;
-        }
-
-        document.getElementById('confirm-btn-yes').addEventListener('click', () => {
-            if (confirmActionCallback) confirmActionCallback();
-            closeCustomConfirm();
-        });
-
-        // ==========================================================================
-        // SISTEMA DE PROMOÇÃO
-        // ==========================================================================
         function checkPromoStatus() {
             const promoBadge = document.getElementById('promo-badge-home');
-
             if (!promoConfig.active || !promoConfig.endTimestamp) {
-                document.getElementById('promo-countdown').style.display = 'none';
-                promoBadge.style.display = 'none';
-                return;
+                document.getElementById('promo-countdown').style.display = 'none'; promoBadge.style.display = 'none'; return;
             }
-
-            const now = new Date().getTime();
-            const distance = promoConfig.endTimestamp - now;
-
+            const now = new Date().getTime(); const distance = promoConfig.endTimestamp - now;
             if (distance < 0) {
                 promoConfig.active = false;
-                if(window.firebaseDb) {
-                    window.firebaseSet(window.firebaseRef(window.firebaseDb, 'settings/promoConfig'), promoConfig);
-                }
-                document.getElementById('promo-countdown').style.display = 'none';
-                promoBadge.style.display = 'none';
+                if(window.firebaseDb) window.firebaseSet(window.firebaseRef(window.firebaseDb, 'settings/promoConfig'), promoConfig);
+                document.getElementById('promo-countdown').style.display = 'none'; promoBadge.style.display = 'none';
                 clearInterval(countdownInterval);
-                
                 if(document.getElementById('order-screen').style.display === 'flex') renderExcelChecklist();
                 if(document.getElementById('packages-screen').style.display === 'flex') renderPackagesList();
-                updateTotal();
-                return;
+                updateTotal(); return;
             }
-
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById('countdown-timer').innerText = 
-                `${days}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
-            document.getElementById('promo-countdown').style.display = 'block';
-            
-            promoBadge.style.display = 'inline-block';
+            document.getElementById('countdown-timer').innerText = `${days}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+            document.getElementById('promo-countdown').style.display = 'block'; promoBadge.style.display = 'inline-block';
         }
 
         function calculateItemPrice(item) {
             if (!promoConfig.active || !promoConfig.discounts) return { finalPrice: item.price, isPromo: false };
             const discount = promoConfig.discounts[item.id];
             if (!discount) return { finalPrice: item.price, isPromo: false };
-
-            let finalPrice = item.price;
-            let percentOff = 0;
-
-            if (discount.type === 'percent') {
-                percentOff = discount.value;
-                finalPrice = item.price - (item.price * (percentOff / 100));
-            } else if (discount.type === 'fixed') {
-                finalPrice = discount.value;
-                percentOff = Math.round(((item.price - finalPrice) / item.price) * 100);
-            }
-            if (finalPrice < 0) finalPrice = 0;
-            return { finalPrice: finalPrice, isPromo: true, percentOff: percentOff };
+            let finalPrice = item.price; let percentOff = 0;
+            if (discount.type === 'percent') { percentOff = discount.value; finalPrice = item.price - (item.price * (percentOff / 100)); } 
+            else if (discount.type === 'fixed') { finalPrice = discount.value; percentOff = Math.round(((item.price - finalPrice) / item.price) * 100); }
+            if (finalPrice < 0) finalPrice = 0; return { finalPrice: finalPrice, isPromo: true, percentOff: percentOff };
         }
 
-        // ==========================================================================
-        // NAVEGAÇÃO ENTRE TELAS
-        // ==========================================================================
         function changeScreen(targetScreen) {
             document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
-            const target = document.getElementById(targetScreen);
-            target.style.display = 'flex';
-
+            const target = document.getElementById(targetScreen); target.style.display = 'flex';
             if(targetScreen === 'order-screen' || targetScreen === 'packages-screen' || targetScreen === 'products-screen') {
-                document.getElementById('total-wrapper-global').style.display = 'flex';
-                updateTotal();
-            } else {
-                document.getElementById('total-wrapper-global').style.display = 'none';
-            }
+                document.getElementById('total-wrapper-global').style.display = 'flex'; updateTotal();
+            } else { document.getElementById('total-wrapper-global').style.display = 'none'; }
         }
 
         function openOrderScreen() { renderExcelChecklist(); changeScreen('order-screen'); }
@@ -1005,235 +847,83 @@
         function openAboutScreen() { renderAboutScreen(); changeScreen('about-screen'); }
         function goBack(screen) { changeScreen(screen); }
 
-        // ==========================================================================
-        // RENDERIZAÇÃO: TELA PERSONALIZADO
-        // ==========================================================================
-        function renderExcelChecklist() {
-            const container = document.getElementById('excel-checklist');
-            container.innerHTML = ''; 
-            
+        function openAdminPages() {
+            document.getElementById('admin-panel-screen').style.display = 'none';
+            document.getElementById('admin-pages-screen').style.display = 'flex';
+        }
+        function closeAdminPages() {
+            document.getElementById('admin-pages-screen').style.display = 'none';
+            document.getElementById('admin-panel-screen').style.display = 'flex';
+        }
+
+        function renderExcelChecklist() { /* Lógica Mantida Intacta */
+            const container = document.getElementById('excel-checklist'); container.innerHTML = ''; 
             if(!excelItems || excelItems.length === 0) return;
-
             excelItems.forEach(item => {
-                const priceData = calculateItemPrice(item);
-                const isPromo = priceData.isPromo;
-
-                let priceHtml = isPromo 
-                    ? `<div style="text-align: right;"><span class="price-old">R$ ${item.price.toFixed(2).replace('.', ',')}</span><span class="discount-badge">-${priceData.percentOff}%</span><span class="price-new">R$ ${priceData.finalPrice.toFixed(2).replace('.', ',')}</span></div>`
-                    : `<span class="check-item-price">R$ ${item.price.toFixed(2).replace('.', ',')}</span>`;
-
+                const priceData = calculateItemPrice(item); const isPromo = priceData.isPromo;
+                let priceHtml = isPromo ? `<div style="text-align: right;"><span class="price-old">R$ ${item.price.toFixed(2).replace('.', ',')}</span><span class="discount-badge">-${priceData.percentOff}%</span><span class="price-new">R$ ${priceData.finalPrice.toFixed(2).replace('.', ',')}</span></div>` : `<span class="check-item-price">R$ ${item.price.toFixed(2).replace('.', ',')}</span>`;
                 const itemClass = isPromo ? "check-item promo-active-item" : "check-item";
-
-                // Processar descrição em tópicos
                 let topicsHtml = '';
                 if (item.description && item.description.trim() !== '') {
                     const topics = item.description.split('\n').filter(t => t.trim() !== '');
-                    if (topics.length > 0) {
-                        topicsHtml = `<div class="item-details-box" id="item-details-${item.id}"><ul>`;
-                        topics.forEach(t => { topicsHtml += `<li>${t}</li>`; });
-                        topicsHtml += `</ul></div>`;
-                    }
+                    if (topics.length > 0) { topicsHtml = `<div class="item-details-box" id="item-details-${item.id}"><ul>`; topics.forEach(t => { topicsHtml += `<li>${t}</li>`; }); topicsHtml += `</ul></div>`; }
                 }
-
-                container.innerHTML += `
-                    <div class="${itemClass}" id="container-item-${item.id}">
-                        <div class="check-item-header-row" onclick="toggleCustomItem(event, ${item.id})">
-                            <div class="check-item-info">
-                                <input type="checkbox" id="item-${item.id}" data-price="${priceData.finalPrice}">
-                                <div><span class="check-item-name" style="font-weight: bold;">${item.name}</span></div>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:10px;">
-                                ${priceHtml}
-                                ${topicsHtml ? `<button class="btn-sm btn-outline" style="margin:0; padding:4px 8px; border-radius:4px; font-size:10px;" onclick="toggleItemDetails(event, ${item.id})">Detalhes ▼</button>` : ''}
-                            </div>
-                        </div>
-                        ${topicsHtml}
-                    </div>
-                `;
-            });
-            updateTotal();
+                container.innerHTML += `<div class="${itemClass}" id="container-item-${item.id}"><div class="check-item-header-row" onclick="toggleCustomItem(event, ${item.id})"><div class="check-item-info"><input type="checkbox" id="item-${item.id}" data-price="${priceData.finalPrice}"><div><span class="check-item-name" style="font-weight: bold;">${item.name}</span></div></div><div style="display:flex; align-items:center; gap:10px;">${priceHtml}${topicsHtml ? `<button class="btn-sm btn-outline" style="margin:0; padding:4px 8px; border-radius:4px; font-size:10px;" onclick="toggleItemDetails(event, ${item.id})">Detalhes ▼</button>` : ''}</div></div>${topicsHtml}</div>`;
+            }); updateTotal();
         }
 
-        function toggleCustomItem(event, id) {
-            if(event && event.target.tagName === 'INPUT') return;
-            const checkbox = document.getElementById(`item-${id}`);
-            const container = document.getElementById(`container-item-${id}`);
-            if(!checkbox) return;
-            checkbox.checked = !checkbox.checked;
-            container.classList.toggle('active', checkbox.checked);
-            updateTotal();
-        }
+        function toggleCustomItem(event, id) { if(event && event.target.tagName === 'INPUT') return; const checkbox = document.getElementById(`item-${id}`); const container = document.getElementById(`container-item-${id}`); if(!checkbox) return; checkbox.checked = !checkbox.checked; container.classList.toggle('active', checkbox.checked); updateTotal(); }
+        function toggleItemDetails(event, id) { event.stopPropagation(); const detailsBox = document.getElementById(`item-details-${id}`); if (detailsBox) { if (detailsBox.style.display === 'block') { detailsBox.style.display = 'none'; event.target.innerText = "Detalhes ▼"; } else { detailsBox.style.display = 'block'; event.target.innerText = "Ocultar ▲"; } } }
 
-        function toggleItemDetails(event, id) {
-            event.stopPropagation();
-            const detailsBox = document.getElementById(`item-details-${id}`);
-            if (detailsBox) {
-                if (detailsBox.style.display === 'block') {
-                    detailsBox.style.display = 'none';
-                    event.target.innerText = "Detalhes ▼";
-                } else {
-                    detailsBox.style.display = 'block';
-                    event.target.innerText = "Ocultar ▲";
-                }
-            }
-        }
-
-        // ==========================================================================
-        // RENDERIZAÇÃO: TELA DE PACOTES
-        // ==========================================================================
-        function renderPackagesList() {
-            const container = document.getElementById('packages-list');
-            container.innerHTML = '';
-
-            document.getElementById('ui-pkg-title').innerText = pkgTexts.title || "Nossos Pacotes Especiais";
-            document.getElementById('ui-pkg-desc').innerText = pkgTexts.desc || "";
-
-            if (!packages || packages.length === 0) {
-                container.innerHTML = '<p style="color:var(--text-secondary); font-size:14px; text-align:center;">Nenhum pacote disponível no momento.</p>';
-                return;
-            }
-
+        function renderPackagesList() { /* Lógica Mantida Intacta */
+            const container = document.getElementById('packages-list'); container.innerHTML = '';
+            document.getElementById('ui-pkg-title').innerText = pkgTexts.title || "Nossos Pacotes Especiais"; document.getElementById('ui-pkg-desc').innerText = pkgTexts.desc || "";
+            if (!packages || packages.length === 0) { container.innerHTML = '<p style="color:var(--text-secondary); font-size:14px; text-align:center;">Nenhum pacote disponível no momento.</p>'; return; }
             packages.forEach(pkg => {
-                const isPromo = promoConfig.active && pkg.promoPrice && pkg.promoPrice < pkg.price;
-                const finalPrice = isPromo ? pkg.promoPrice : pkg.price;
-
-                let priceHtml = isPromo
-                    ? `<div style="text-align: right;"><span class="price-old">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span><span class="price-new" style="color:${pkg.color};">R$ ${finalPrice.toFixed(2).replace('.', ',')}</span></div>`
-                    : `<span class="check-item-price" style="font-size:15px; font-weight:bold; color:${pkg.color};">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span>`;
-
-                let listIncluded = '';
-                let listExcluded = '';
-                
-                excelItems.forEach(item => {
-                    const isIncluded = pkg.items && pkg.items.includes(item.id);
-                    if (isIncluded) {
-                        listIncluded += `<li>✅ ${item.name}</li>`;
-                    } else {
-                        listExcluded += `<li>❌ ${item.name}</li>`;
-                    }
-                });
-
-                let detailsHtml = `
-                    <div class="pkg-full-details" id="pkg-details-${pkg.id}">
-                        <h4>🔹 Incluso no Pacote:</h4>
-                        <ul class="pkg-list included">${listIncluded || '<li>Nenhum item marcado</li>'}</ul>
-                        <h4>🔸 Não Incluso:</h4>
-                        <ul class="pkg-list excluded">${listExcluded || '<li>Todos os itens inclusos</li>'}</ul>
-                    </div>
-                `;
-
-                container.innerHTML += `
-                    <div class="check-item" id="pkg-card-${pkg.id}" style="flex-direction: column; align-items: flex-start; gap: 10px;">
-                        
-                        <div class="check-item-header-row" onclick="togglePackage(event, ${pkg.id}, '${pkg.color}')">
-                            <div class="check-item-info">
-                                <input type="checkbox" id="pkg-${pkg.id}" data-price="${finalPrice}" style="accent-color: ${pkg.color}; pointer-events:none;">
-                                <span class="check-item-name" style="font-weight:bold; font-size:16px;">${pkg.name}</span>
-                            </div>
-                            ${priceHtml}
-                        </div>
-
-                        <div style="width: 100%; display: flex; justify-content: flex-start; margin-top: 5px;">
-                            <button class="btn-sm btn-outline" style="border-radius:20px; color:${pkg.color}; border-color:${pkg.color}; font-weight:bold; width: 100%; background:rgba(0,0,0,0.3);" onclick="togglePkgDetailsFull(event, ${pkg.id})">Tudo de ${pkg.name} ▼</button>
-                        </div>
-                        
-                        ${detailsHtml}
-                    </div>
-                `;
-            });
-            updateTotal();
+                const isPromo = promoConfig.active && pkg.promoPrice && pkg.promoPrice < pkg.price; const finalPrice = isPromo ? pkg.promoPrice : pkg.price;
+                let priceHtml = isPromo ? `<div style="text-align: right;"><span class="price-old">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span><span class="price-new" style="color:${pkg.color};">R$ ${finalPrice.toFixed(2).replace('.', ',')}</span></div>` : `<span class="check-item-price" style="font-size:15px; font-weight:bold; color:${pkg.color};">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span>`;
+                let listIncluded = ''; let listExcluded = '';
+                excelItems.forEach(item => { const isIncluded = pkg.items && pkg.items.includes(item.id); if (isIncluded) { listIncluded += `<li>✅ ${item.name}</li>`; } else { listExcluded += `<li>❌ ${item.name}</li>`; } });
+                let detailsHtml = `<div class="pkg-full-details" id="pkg-details-${pkg.id}"><h4>🔹 Incluso no Pacote:</h4><ul class="pkg-list included">${listIncluded || '<li>Nenhum item marcado</li>'}</ul><h4>🔸 Não Incluso:</h4><ul class="pkg-list excluded">${listExcluded || '<li>Todos os itens inclusos</li>'}</ul></div>`;
+                container.innerHTML += `<div class="check-item" id="pkg-card-${pkg.id}" style="flex-direction: column; align-items: flex-start; gap: 10px;"><div class="check-item-header-row" onclick="togglePackage(event, ${pkg.id}, '${pkg.color}')"><div class="check-item-info"><input type="checkbox" id="pkg-${pkg.id}" data-price="${finalPrice}" style="accent-color: ${pkg.color}; pointer-events:none;"><span class="check-item-name" style="font-weight:bold; font-size:16px;">${pkg.name}</span></div>${priceHtml}</div><div style="width: 100%; display: flex; justify-content: flex-start; margin-top: 5px;"><button class="btn-sm btn-outline" style="border-radius:20px; color:${pkg.color}; border-color:${pkg.color}; font-weight:bold; width: 100%; background:rgba(0,0,0,0.3);" onclick="togglePkgDetailsFull(event, ${pkg.id})">Tudo de ${pkg.name} ▼</button></div>${detailsHtml}</div>`;
+            }); updateTotal();
         }
 
-        function togglePackage(event, pkgId, colorHex) {
-            const checkbox = document.getElementById(`pkg-${pkgId}`);
-            const card = document.getElementById(`pkg-card-${pkgId}`);
-            checkbox.checked = !checkbox.checked;
+        function togglePackage(event, pkgId, colorHex) { const checkbox = document.getElementById(`pkg-${pkgId}`); const card = document.getElementById(`pkg-card-${pkgId}`); checkbox.checked = !checkbox.checked; if (checkbox.checked) { card.style.borderColor = colorHex; card.style.boxShadow = `0 0 15px ${colorHex}60`; card.style.background = `linear-gradient(145deg, var(--input-bg), ${colorHex}20)`; } else { card.style.borderColor = 'var(--input-border)'; card.style.boxShadow = 'none'; card.style.background = 'var(--input-bg)'; } updateTotal(); }
+        function togglePkgDetailsFull(event, pkgId) { event.stopPropagation(); const detailsBox = document.getElementById(`pkg-details-${pkgId}`); const btn = event.target; if (detailsBox) { if (detailsBox.style.display === 'block') { detailsBox.style.display = 'none'; btn.innerText = btn.innerText.replace('▲', '▼').replace('Ocultar', 'Tudo de'); } else { detailsBox.style.display = 'block'; btn.innerText = `Ocultar Detalhes ▲`; } } }
 
-            if (checkbox.checked) {
-                card.style.borderColor = colorHex;
-                card.style.boxShadow = `0 0 15px ${colorHex}60`;
-                card.style.background = `linear-gradient(145deg, var(--input-bg), ${colorHex}20)`;
-            } else {
-                card.style.borderColor = 'var(--input-border)';
-                card.style.boxShadow = 'none';
-                card.style.background = 'var(--input-bg)';
-            }
-            updateTotal();
+        function renderProductsList() { /* Lógica Mantida Intacta */
+            const container = document.getElementById('products-list'); container.innerHTML = '';
+            if (!readyProducts || readyProducts.length === 0) { container.innerHTML = '<p style="color:var(--text-secondary); font-size:14px; text-align:center;">Nenhum produto pronto disponível no momento.</p>'; return; }
+            readyProducts.forEach(prod => { container.innerHTML += `<div class="product-card" id="prod-card-${prod.id}">${prod.img ? `<img src="${prod.img}" class="product-img" onclick="toggleProduct(event, ${prod.id})">` : ''}<div class="product-info" onclick="toggleProduct(event, ${prod.id})"><div class="product-header-row"><div style="display:flex; align-items:center; gap:10px;"><input type="checkbox" id="prod-${prod.id}" data-price="${prod.price}" style="width:18px;height:18px;accent-color:var(--primary-color);pointer-events:none;"><span style="font-weight:bold; color:var(--text-primary); font-size: 15px;">${prod.title}</span></div><span style="font-weight:bold; color:var(--primary-color);">R$ ${parseFloat(prod.price).toFixed(2).replace('.',',')}</span></div><p style="font-size:13px; color:var(--text-secondary);">${prod.desc}</p></div></div>`; }); updateTotal();
         }
+        function toggleProduct(event, id) { if(event && event.target.tagName === 'INPUT') return; const checkbox = document.getElementById(`prod-${id}`); const card = document.getElementById(`prod-card-${id}`); if(!checkbox) return; checkbox.checked = !checkbox.checked; card.classList.toggle('active', checkbox.checked); updateTotal(); }
 
-        function togglePkgDetailsFull(event, pkgId) {
-            event.stopPropagation();
-            const detailsBox = document.getElementById(`pkg-details-${pkgId}`);
-            const btn = event.target;
-            if (detailsBox) {
-                if (detailsBox.style.display === 'block') {
-                    detailsBox.style.display = 'none';
-                    btn.innerText = btn.innerText.replace('▲', '▼').replace('Ocultar', 'Tudo de');
-                } else {
-                    detailsBox.style.display = 'block';
-                    btn.innerText = `Ocultar Detalhes ▲`;
-                }
-            }
-        }
-
-        // ==========================================================================
-        // RENDERIZAÇÃO: TELA PRODUTOS PRONTOS
-        // ==========================================================================
-        function renderProductsList() {
-            const container = document.getElementById('products-list');
-            container.innerHTML = '';
-            
-            if (!readyProducts || readyProducts.length === 0) {
-                container.innerHTML = '<p style="color:var(--text-secondary); font-size:14px; text-align:center;">Nenhum produto pronto disponível no momento.</p>';
-                return;
-            }
-            
-            readyProducts.forEach(prod => {
-                container.innerHTML += `
-                    <div class="product-card" id="prod-card-${prod.id}">
-                        ${prod.img ? `<img src="${prod.img}" class="product-img" onclick="toggleProduct(event, ${prod.id})">` : ''}
-                        <div class="product-info" onclick="toggleProduct(event, ${prod.id})">
-                            <div class="product-header-row">
-                                <div style="display:flex; align-items:center; gap:10px;">
-                                    <input type="checkbox" id="prod-${prod.id}" data-price="${prod.price}" style="width:18px;height:18px;accent-color:var(--primary-color);pointer-events:none;">
-                                    <span style="font-weight:bold; color:var(--text-primary); font-size: 15px;">${prod.title}</span>
-                                </div>
-                                <span style="font-weight:bold; color:var(--primary-color);">R$ ${parseFloat(prod.price).toFixed(2).replace('.',',')}</span>
-                            </div>
-                            <p style="font-size:13px; color:var(--text-secondary);">${prod.desc}</p>
-                        </div>
-                    </div>
-                `;
-            });
-            updateTotal();
-        }
-
-        function toggleProduct(event, id) {
-            if(event && event.target.tagName === 'INPUT') return;
-            const checkbox = document.getElementById(`prod-${id}`);
-            const card = document.getElementById(`prod-card-${id}`);
-            if(!checkbox) return;
-            checkbox.checked = !checkbox.checked;
-            card.classList.toggle('active', checkbox.checked);
-            updateTotal();
-        }
-
-        // ==========================================================================
-        // RENDERIZAÇÃO: TELA SOBRE NÓS
-        // ==========================================================================
+        // Nova Lógica Limpa e Profissional da Tela Sobre Nós
         function renderAboutScreen() {
             document.getElementById('ui-about-cover').style.backgroundImage = `url('${aboutConfig.coverImg}')`;
             document.getElementById('ui-about-profile').src = aboutConfig.profileImg;
             document.getElementById('ui-about-title').innerText = aboutConfig.title;
             document.getElementById('ui-about-desc').innerText = aboutConfig.desc;
+            
+            const freeTextContainer = document.getElementById('ui-about-free-text');
+            if(aboutConfig.pageText && aboutConfig.pageText.trim() !== "") {
+                freeTextContainer.style.display = 'block';
+                freeTextContainer.innerText = aboutConfig.pageText;
+            } else {
+                freeTextContainer.style.display = 'none';
+            }
 
             const cardsContainer = document.getElementById('ui-about-cards-list');
             cardsContainer.innerHTML = '';
 
+            // Reinjeta e força reflow para a animação disparar sempre que a tela abrir
             if (aboutConfig.cards && aboutConfig.cards.length > 0) {
                 aboutConfig.cards.forEach(card => {
+                    // Evita "undefined" nas classes e define o estilo corretamente
+                    const effectClass = card.effect && card.effect !== 'none' ? card.effect : '';
                     cardsContainer.innerHTML += `
-                        <div class="about-card ${card.effect || ''}">
+                        <div class="about-card ${effectClass}">
                             ${card.img ? `<img src="${card.img}" alt="Card Image">` : ''}
                             <div class="about-card-body">
                                 <h3 class="about-card-title">${card.title}</h3>
@@ -1245,375 +935,103 @@
             }
         }
 
-        // ==========================================================================
-        // LÓGICA DE CARRINHO E CHECKOUT
-        // ==========================================================================
         function updateTotal() {
             let total = 0;
-            if(excelItems) {
-                excelItems.forEach(item => {
-                    const checkbox = document.getElementById(`item-${item.id}`);
-                    if (checkbox && checkbox.checked) total += parseFloat(checkbox.getAttribute('data-price'));
-                });
-            }
-            if(packages) {
-                packages.forEach(pkg => {
-                    const checkbox = document.getElementById(`pkg-${pkg.id}`);
-                    if (checkbox && checkbox.checked) total += parseFloat(checkbox.getAttribute('data-price'));
-                });
-            }
-            if(readyProducts) {
-                readyProducts.forEach(prod => {
-                    const checkbox = document.getElementById(`prod-${prod.id}`);
-                    if (checkbox && checkbox.checked) total += parseFloat(checkbox.getAttribute('data-price'));
-                });
-            }
-
-            const totalContainer = document.getElementById('total-container');
-            const totalValue = document.getElementById('total-value');
-            const btnFinalizar = document.getElementById('btn-finalizar');
-            
+            if(excelItems) excelItems.forEach(item => { const checkbox = document.getElementById(`item-${item.id}`); if (checkbox && checkbox.checked) total += parseFloat(checkbox.getAttribute('data-price')); });
+            if(packages) packages.forEach(pkg => { const checkbox = document.getElementById(`pkg-${pkg.id}`); if (checkbox && checkbox.checked) total += parseFloat(checkbox.getAttribute('data-price')); });
+            if(readyProducts) readyProducts.forEach(prod => { const checkbox = document.getElementById(`prod-${prod.id}`); if (checkbox && checkbox.checked) total += parseFloat(checkbox.getAttribute('data-price')); });
+            const totalContainer = document.getElementById('total-container'); const totalValue = document.getElementById('total-value'); const btnFinalizar = document.getElementById('btn-finalizar');
             totalValue.innerText = total.toFixed(2).replace('.', ',');
-            
-            if (total > 0) {
-                totalContainer.style.display = 'block';
-                btnFinalizar.style.display = 'block';
-            } else {
-                totalContainer.style.display = 'none';
-                btnFinalizar.style.display = 'none';
-            }
+            if (total > 0) { totalContainer.style.display = 'block'; btnFinalizar.style.display = 'block'; } else { totalContainer.style.display = 'none'; btnFinalizar.style.display = 'none'; }
         }
 
         function fireGoldenConfetti() {
-            var duration = 3 * 1000;
-            var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000, colors: ['#ffd700', '#e6c200', '#ffea00', '#ffffff'] };
-
+            var duration = 3 * 1000; var animationEnd = Date.now() + duration; var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000, colors: ['#ffd700', '#e6c200', '#ffea00', '#ffffff'] };
             function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-
             var interval = setInterval(function() {
-                var timeLeft = animationEnd - Date.now();
-                if (timeLeft <= 0) { return clearInterval(interval); }
+                var timeLeft = animationEnd - Date.now(); if (timeLeft <= 0) { return clearInterval(interval); }
                 var particleCount = 50 * (timeLeft / duration);
-                
                 confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
                 confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
             }, 250);
         }
 
-        function openCheckoutModal() {
-            document.getElementById('checkout-modal').style.display = 'flex';
-            if(promoConfig.active) {
-                fireGoldenConfetti();
-            }
-        }
-
-        function closeCheckoutModal() {
-            document.getElementById('checkout-modal').style.display = 'none';
-        }
+        function openCheckoutModal() { document.getElementById('checkout-modal').style.display = 'flex'; if(promoConfig.active) { fireGoldenConfetti(); } }
+        function closeCheckoutModal() { document.getElementById('checkout-modal').style.display = 'none'; }
 
         function submitOrderToWhatsApp() {
-            const nome = document.getElementById('nome').value;
-            const finalidadeSelect = document.getElementById('finalidade');
-            const finalidade = finalidadeSelect.options[finalidadeSelect.selectedIndex]?.text || '';
-            const urgenciaSelect = document.getElementById('urgencia');
-            const urgencia = urgenciaSelect.options[urgenciaSelect.selectedIndex]?.text || '';
-            const descricao = document.getElementById('descricao').value;
-
-            if (!nome || !finalidadeSelect.value || !urgenciaSelect.value) {
-                showCustomAlert("Por favor, preencha nome, finalidade e urgência para prosseguir.");
-                return;
-            }
-
-            let itensSelecionados = [];
-            let total = 0;
-
-            let iconePacote = promoConfig.active ? "🏆" : "📦";
-            let iconeItem = promoConfig.active ? "🌟" : "🔹";
-
-            packages.forEach(pkg => {
-                const checkbox = document.getElementById(`pkg-${pkg.id}`);
-                if (checkbox && checkbox.checked) {
-                    let finalP = parseFloat(checkbox.getAttribute('data-price'));
-                    itensSelecionados.push(`${iconePacote} *[PACOTE]* ${pkg.name} (R$ ${finalP.toFixed(2).replace('.', ',')})`);
-                    total += finalP;
-                }
-            });
-
-            excelItems.forEach(item => {
-                const checkbox = document.getElementById(`item-${item.id}`);
-                if (checkbox && checkbox.checked) {
-                    let finalP = parseFloat(checkbox.getAttribute('data-price'));
-                    itensSelecionados.push(`${iconeItem} ${item.name} (R$ ${finalP.toFixed(2).replace('.', ',')})`);
-                    total += finalP;
-                }
-            });
-
-            readyProducts.forEach(prod => {
-                const checkbox = document.getElementById(`prod-${prod.id}`);
-                if (checkbox && checkbox.checked) {
-                    let finalP = parseFloat(checkbox.getAttribute('data-price'));
-                    itensSelecionados.push(`🛍️ *[PRODUTO PRONTO]* ${prod.title} (R$ ${finalP.toFixed(2).replace('.', ',')})`);
-                    total += finalP;
-                }
-            });
-
-            let relatorio = `*NOVO PEDIDO EXCELLENT SERVICES*%0A%0A`;
-            relatorio += `*Nome:* ${nome}%0A*Finalidade:* ${finalidade}%0A*Urgência:* ${urgencia}%0A%0A`;
-            relatorio += `*Itens Selecionados:*%0A${itensSelecionados.join('%0A')}%0A%0A`;
+            const nome = document.getElementById('nome').value; const finalidadeSelect = document.getElementById('finalidade'); const finalidade = finalidadeSelect.options[finalidadeSelect.selectedIndex]?.text || ''; const urgenciaSelect = document.getElementById('urgencia'); const urgencia = urgenciaSelect.options[urgenciaSelect.selectedIndex]?.text || ''; const descricao = document.getElementById('descricao').value;
+            if (!nome || !finalidadeSelect.value || !urgenciaSelect.value) { showCustomAlert("Por favor, preencha nome, finalidade e urgência para prosseguir."); return; }
+            let itensSelecionados = []; let total = 0; let iconePacote = promoConfig.active ? "🏆" : "📦"; let iconeItem = promoConfig.active ? "🌟" : "🔹";
+            packages.forEach(pkg => { const checkbox = document.getElementById(`pkg-${pkg.id}`); if (checkbox && checkbox.checked) { let finalP = parseFloat(checkbox.getAttribute('data-price')); itensSelecionados.push(`${iconePacote} *[PACOTE]* ${pkg.name} (R$ ${finalP.toFixed(2).replace('.', ',')})`); total += finalP; } });
+            excelItems.forEach(item => { const checkbox = document.getElementById(`item-${item.id}`); if (checkbox && checkbox.checked) { let finalP = parseFloat(checkbox.getAttribute('data-price')); itensSelecionados.push(`${iconeItem} ${item.name} (R$ ${finalP.toFixed(2).replace('.', ',')})`); total += finalP; } });
+            readyProducts.forEach(prod => { const checkbox = document.getElementById(`prod-${prod.id}`); if (checkbox && checkbox.checked) { let finalP = parseFloat(checkbox.getAttribute('data-price')); itensSelecionados.push(`🛍️ *[PRODUTO PRONTO]* ${prod.title} (R$ ${finalP.toFixed(2).replace('.', ',')})`); total += finalP; } });
+            let relatorio = `*NOVO PEDIDO EXCELLENT SERVICES*%0A%0A*Nome:* ${nome}%0A*Finalidade:* ${finalidade}%0A*Urgência:* ${urgencia}%0A%0A*Itens Selecionados:*%0A${itensSelecionados.join('%0A')}%0A%0A`;
             if (descricao) relatorio += `*Descrição Adicional:*%0A${descricao}%0A%0A`;
-            relatorio += `*Total Estimado:* R$ ${total.toFixed(2).replace('.', ',')}%0A%0A`;
-            
-            relatorio += `Aguardo retorno e analise de orçamento...`;
-
-            window.open(`https://wa.me/55${WHATSAPP_NUMBER}?text=${relatorio}`, '_blank');
-            closeCheckoutModal();
+            relatorio += `*Total Estimado:* R$ ${total.toFixed(2).replace('.', ',')}%0A%0AAguardo retorno e analise de orçamento...`;
+            window.open(`https://wa.me/55${WHATSAPP_NUMBER}?text=${relatorio}`, '_blank'); closeCheckoutModal();
         }
 
-        // ==========================================================================
-        // PAINEL ADMINISTRATIVO MESTRE
-        // ==========================================================================
         let headerClicks = 0;
-        document.getElementById('app-header').addEventListener('click', () => {
-            headerClicks++;
-            if (headerClicks === 10) { 
-                headerClicks = 0; 
-                changeScreen('admin-auth-screen'); 
-            }
-        });
+        document.getElementById('app-header').addEventListener('click', () => { headerClicks++; if (headerClicks === 10) { headerClicks = 0; changeScreen('admin-auth-screen'); } });
 
         function authenticateAdmin() {
             if (document.getElementById('admin-password-input').value === ADMIN_PASSWORD) {
-                // Reset temporaries
-                tempImageBase64 = null;
-                tempAboutCoverBase64 = null;
-                tempAboutProfileBase64 = null;
-                tempNewCardBase64 = null;
-                tempNewProdBase64 = null;
+                tempImageBase64 = null; tempAboutCoverBase64 = null; tempAboutProfileBase64 = null; tempNewCardBase64 = null; tempNewProdBase64 = null;
+                document.getElementById('admin-home-title').value = homeTexts.title || ""; document.getElementById('admin-home-desc').value = homeTexts.desc || ""; document.getElementById('admin-pkg-title').value = pkgTexts.title || ""; document.getElementById('admin-pkg-desc').value = pkgTexts.desc || "";
                 
-                // Carregar valores para formulários do admin
-                document.getElementById('admin-home-title').value = homeTexts.title || "";
-                document.getElementById('admin-home-desc').value = homeTexts.desc || "";
-                document.getElementById('admin-pkg-title').value = pkgTexts.title || "";
-                document.getElementById('admin-pkg-desc').value = pkgTexts.desc || "";
-                
-                document.getElementById('admin-about-title').value = aboutConfig.title || "";
+                // Preenchendo dados do About Pages Screen
+                document.getElementById('admin-about-title').value = aboutConfig.title || ""; 
                 document.getElementById('admin-about-desc').value = aboutConfig.desc || "";
+                document.getElementById('admin-about-page-text').value = aboutConfig.pageText || "";
 
-                renderAdminLists();
-                renderAdminPackages();
-                renderAdminAboutCards();
-                renderAdminProducts();
-                loadAdminPromoConfig();
-                
-                changeScreen('admin-panel-screen');
-                document.getElementById('admin-password-input').value = "";
-            } else { 
-                showCustomAlert("Senha incorreta."); 
-            }
+                renderAdminLists(); renderAdminPackages(); renderAdminAboutCards(); renderAdminProducts(); loadAdminPromoConfig();
+                changeScreen('admin-panel-screen'); document.getElementById('admin-password-input').value = "";
+            } else { showCustomAlert("Senha incorreta."); }
         }
 
-        function togglePromoSection() {
-            const isChecked = document.getElementById('promo-toggle').checked;
-            document.getElementById('promo-config-section').style.display = isChecked ? 'block' : 'none';
-        }
+        function togglePromoSection() { const isChecked = document.getElementById('promo-toggle').checked; document.getElementById('promo-config-section').style.display = isChecked ? 'block' : 'none'; }
+        function loadAdminPromoConfig() { document.getElementById('promo-toggle').checked = promoConfig.active; togglePromoSection(); if (promoConfig.endTimestamp) { const d = new Date(promoConfig.endTimestamp); if (!isNaN(d.getTime())) { document.getElementById('promo-end-date').value = d.toISOString().split('T')[0]; document.getElementById('promo-end-hour').value = d.getHours(); document.getElementById('promo-end-minute').value = d.getMinutes(); } } }
+        function processImageFile(event, targetVar) { const file = event.target.files[0]; const reader = new FileReader(); reader.onloadend = function() { if(targetVar === 'about-cover') tempAboutCoverBase64 = reader.result; if(targetVar === 'about-profile') tempAboutProfileBase64 = reader.result; }
+            if (file) reader.readAsDataURL(file); }
+        function previewImageTemp(event) { const file = event.target.files[0]; const reader = new FileReader(); reader.onloadend = function() { tempImageBase64 = reader.result; }
+            if (file) reader.readAsDataURL(file); }
 
-        function loadAdminPromoConfig() {
-            document.getElementById('promo-toggle').checked = promoConfig.active;
-            togglePromoSection();
-
-            if (promoConfig.endTimestamp) {
-                const d = new Date(promoConfig.endTimestamp);
-                if (!isNaN(d.getTime())) {
-                    document.getElementById('promo-end-date').value = d.toISOString().split('T')[0];
-                    document.getElementById('promo-end-hour').value = d.getHours();
-                    document.getElementById('promo-end-minute').value = d.getMinutes();
-                }
-            }
-        }
-
-        function processImageFile(event, targetVar) {
-            const file = event.target.files[0]; 
-            const reader = new FileReader();
-            reader.onloadend = function() { 
-                if(targetVar === 'about-cover') tempAboutCoverBase64 = reader.result;
-                if(targetVar === 'about-profile') tempAboutProfileBase64 = reader.result;
-            }
-            if (file) reader.readAsDataURL(file);
-        }
-
-        function previewImageTemp(event) {
-            const file = event.target.files[0]; 
-            const reader = new FileReader();
-            reader.onloadend = function() { tempImageBase64 = reader.result; }
-            if (file) reader.readAsDataURL(file);
-        }
-
-        // --- ADMIN ITENS PERSONALIZADOS ---
         function renderAdminLists() {
-            const listContainer = document.getElementById('admin-items-list');
-            const promoListContainer = document.getElementById('admin-promo-items-list');
-            listContainer.innerHTML = ''; promoListContainer.innerHTML = '';
-
+            const listContainer = document.getElementById('admin-items-list'); const promoListContainer = document.getElementById('admin-promo-items-list'); listContainer.innerHTML = ''; promoListContainer.innerHTML = '';
             if(!excelItems) return;
-
             excelItems.forEach(item => {
-                listContainer.innerHTML += `
-                    <div class="admin-item-form" id="admin-row-${item.id}">
-                        <label style="font-size:11px;">Nome:</label>
-                        <input type="text" class="edit-name" value="${item.name}" style="margin-bottom: 8px;">
-                        
-                        <label style="font-size:11px;">Preço Base:</label>
-                        <input type="number" class="edit-price" value="${item.price}" style="margin-bottom: 8px;">
-                        
-                        <label style="font-size:11px;">Descrição (Tópicos do item - Pule linhas):</label>
-                        <textarea class="edit-desc" style="margin-bottom: 8px; min-height:60px;">${item.description || ''}</textarea>
-                        
-                        <button class="btn-sm btn-danger" onclick="deleteItemTemp(${item.id})">Excluir Item</button>
-                    </div>
-                `;
-
-                const disc = promoConfig.discounts[item.id] || { type: 'percent', value: '' };
-                const selPercent = disc.type === 'percent' ? 'selected' : '';
-                const selFixed = disc.type === 'fixed' ? 'selected' : '';
-
-                promoListContainer.innerHTML += `
-                    <div class="admin-item-form" style="background-color: var(--header-bg); border-color: rgba(255,215,0,0.3);">
-                        <strong style="font-size: 13px;">${item.name}</strong> <span style="font-size: 11px; color: var(--text-secondary);">(R$ ${item.price})</span>
-                        <div style="display:flex; gap:10px; margin-top:8px;">
-                            <select class="promo-type-sel" id="promo-type-${item.id}" style="width: 50%; font-size: 13px;">
-                                <option value="percent" ${selPercent}>Desconto (%)</option>
-                                <option value="fixed" ${selFixed}>Preço Fixo (R$)</option>
-                            </select>
-                            <input type="number" class="promo-val-in" id="promo-val-${item.id}" value="${disc.value}" placeholder="Valor" style="width: 50%;">
-                        </div>
-                    </div>
-                `;
+                listContainer.innerHTML += `<div class="admin-item-form" id="admin-row-${item.id}"><label style="font-size:11px;">Nome:</label><input type="text" class="edit-name" value="${item.name}" style="margin-bottom: 8px;"><label style="font-size:11px;">Preço Base:</label><input type="number" class="edit-price" value="${item.price}" style="margin-bottom: 8px;"><label style="font-size:11px;">Descrição (Tópicos do item - Pule linhas):</label><textarea class="edit-desc" style="margin-bottom: 8px; min-height:60px;">${item.description || ''}</textarea><button class="btn-sm btn-danger" onclick="deleteItemTemp(${item.id})">Excluir Item</button></div>`;
+                const disc = promoConfig.discounts[item.id] || { type: 'percent', value: '' }; const selPercent = disc.type === 'percent' ? 'selected' : ''; const selFixed = disc.type === 'fixed' ? 'selected' : '';
+                promoListContainer.innerHTML += `<div class="admin-item-form" style="background-color: var(--header-bg); border-color: rgba(255,215,0,0.3);"><strong style="font-size: 13px;">${item.name}</strong> <span style="font-size: 11px; color: var(--text-secondary);">(R$ ${item.price})</span><div style="display:flex; gap:10px; margin-top:8px;"><select class="promo-type-sel" id="promo-type-${item.id}" style="width: 50%; font-size: 13px;"><option value="percent" ${selPercent}>Desconto (%)</option><option value="fixed" ${selFixed}>Preço Fixo (R$)</option></select><input type="number" class="promo-val-in" id="promo-val-${item.id}" value="${disc.value}" placeholder="Valor" style="width: 50%;"></div></div>`;
             });
         }
+        function addNewItemTemp() { const nameInput = document.getElementById('new-item-name'); const priceInput = document.getElementById('new-item-price'); const descInput = document.getElementById('new-item-desc'); if (!nameInput.value || !priceInput.value) { showCustomAlert("Preencha o nome e o preço do item."); return; } excelItems.push({ id: excelItems.length > 0 ? Math.max(...excelItems.map(i => i.id)) + 1 : 1, name: nameInput.value, price: parseFloat(priceInput.value), description: descInput.value }); nameInput.value = ""; priceInput.value = ""; descInput.value = ""; renderAdminLists(); renderAdminPackages(); }
+        function deleteItemTemp(id) { showCustomConfirm("Tem certeza que deseja excluir este item personalizado?", () => { excelItems = excelItems.filter(item => item.id !== id); renderAdminLists(); renderAdminPackages(); }); }
 
-        function addNewItemTemp() {
-            const nameInput = document.getElementById('new-item-name'); 
-            const priceInput = document.getElementById('new-item-price');
-            const descInput = document.getElementById('new-item-desc');
-            
-            if (!nameInput.value || !priceInput.value) { showCustomAlert("Preencha o nome e o preço do item."); return; }
-            
-            excelItems.push({ 
-                id: excelItems.length > 0 ? Math.max(...excelItems.map(i => i.id)) + 1 : 1, 
-                name: nameInput.value, 
-                price: parseFloat(priceInput.value),
-                description: descInput.value
-            });
-            
-            nameInput.value = ""; priceInput.value = ""; descInput.value = ""; 
-            renderAdminLists(); 
-            renderAdminPackages();
-        }
-
-        function deleteItemTemp(id) { 
-            showCustomConfirm("Tem certeza que deseja excluir este item personalizado?", () => {
-                excelItems = excelItems.filter(item => item.id !== id); 
-                renderAdminLists(); 
-                renderAdminPackages(); 
-            }); 
-        }
-
-        // --- ADMIN PACOTES ---
         function renderAdminPackages() {
-            const container = document.getElementById('admin-packages-list');
-            container.innerHTML = '';
-
-            if(!packages) return;
-
+            const container = document.getElementById('admin-packages-list'); container.innerHTML = ''; if(!packages) return;
             packages.forEach(pkg => {
-                let itemsCheckboxes = excelItems.map(item => `
-                    <label style="display:flex; align-items:center; gap:5px; font-size:12px; margin-bottom:5px; color:var(--text-primary); font-weight:normal;">
-                        <input type="checkbox" class="pkg-item-check" data-item-id="${item.id}" ${pkg.items && pkg.items.includes(item.id) ? 'checked' : ''} style="width:14px; height:14px; accent-color:${pkg.color};">
-                        ${item.name}
-                    </label>
-                `).join('');
-
-                container.innerHTML += `
-                    <div class="admin-item-form" id="admin-pkg-${pkg.id}" style="border-left: 4px solid ${pkg.color};">
-                        <input type="text" class="edit-pkg-name" value="${pkg.name}" style="margin-bottom: 8px;">
-                        <div style="display:flex; gap:10px; margin-bottom:8px;">
-                            <div style="width:50%"><label style="font-size:10px; margin-bottom:2px;">Preço Normal</label><input type="number" class="edit-pkg-price" value="${pkg.price}"></div>
-                            <div style="width:50%"><label style="font-size:10px; margin-bottom:2px;">Preço Promo</label><input type="number" class="edit-pkg-promo" value="${pkg.promoPrice || ''}"></div>
-                        </div>
-                        <label style="font-size:10px; margin-bottom:2px;">Cor do Brilho</label>
-                        <select class="edit-pkg-color" style="margin-bottom: 10px;">
-                            <option value="#bdc3c7" ${pkg.color === '#bdc3c7' ? 'selected' : ''}>Cinza</option>
-                            <option value="#ffd700" ${pkg.color === '#ffd700' ? 'selected' : ''}>Dourado</option>
-                            <option value="#00cec9" ${pkg.color === '#00cec9' ? 'selected' : ''}>Verde-Água</option>
-                            <option value="#3498db" ${pkg.color === '#3498db' ? 'selected' : ''}>Azul</option>
-                            <option value="#9b59b6" ${pkg.color === '#9b59b6' ? 'selected' : ''}>Roxo</option>
-                        </select>
-                        <div style="background: var(--header-bg); padding: 10px; border-radius: 5px; margin-bottom: 10px;">
-                            <span style="font-size:11px; color:var(--text-secondary); display:block; margin-bottom:5px;">Marque os itens deste pacote (Os marcados são INCLUSOS):</span>
-                            ${itemsCheckboxes}
-                        </div>
-                        <button class="btn-sm btn-danger" onclick="deletePackageTemp(${pkg.id})">Excluir Pacote</button>
-                    </div>
-                `;
+                let itemsCheckboxes = excelItems.map(item => `<label style="display:flex; align-items:center; gap:5px; font-size:12px; margin-bottom:5px; color:var(--text-primary); font-weight:normal;"><input type="checkbox" class="pkg-item-check" data-item-id="${item.id}" ${pkg.items && pkg.items.includes(item.id) ? 'checked' : ''} style="width:14px; height:14px; accent-color:${pkg.color};">${item.name}</label>`).join('');
+                container.innerHTML += `<div class="admin-item-form" id="admin-pkg-${pkg.id}" style="border-left: 4px solid ${pkg.color};"><input type="text" class="edit-pkg-name" value="${pkg.name}" style="margin-bottom: 8px;"><div style="display:flex; gap:10px; margin-bottom:8px;"><div style="width:50%"><label style="font-size:10px; margin-bottom:2px;">Preço Normal</label><input type="number" class="edit-pkg-price" value="${pkg.price}"></div><div style="width:50%"><label style="font-size:10px; margin-bottom:2px;">Preço Promo</label><input type="number" class="edit-pkg-promo" value="${pkg.promoPrice || ''}"></div></div><label style="font-size:10px; margin-bottom:2px;">Cor do Brilho</label><select class="edit-pkg-color" style="margin-bottom: 10px;"><option value="#bdc3c7" ${pkg.color === '#bdc3c7' ? 'selected' : ''}>Cinza</option><option value="#ffd700" ${pkg.color === '#ffd700' ? 'selected' : ''}>Dourado</option><option value="#00cec9" ${pkg.color === '#00cec9' ? 'selected' : ''}>Verde-Água</option><option value="#3498db" ${pkg.color === '#3498db' ? 'selected' : ''}>Azul</option><option value="#9b59b6" ${pkg.color === '#9b59b6' ? 'selected' : ''}>Roxo</option></select><div style="background: var(--header-bg); padding: 10px; border-radius: 5px; margin-bottom: 10px;"><span style="font-size:11px; color:var(--text-secondary); display:block; margin-bottom:5px;">Marque os itens deste pacote (Os marcados são INCLUSOS):</span>${itemsCheckboxes}</div><button class="btn-sm btn-danger" onclick="deletePackageTemp(${pkg.id})">Excluir Pacote</button></div>`;
             });
         }
+        function addNewPackageTemp() { const nameInput = document.getElementById('new-pkg-name'); const priceInput = document.getElementById('new-pkg-price'); const promoInput = document.getElementById('new-pkg-promo'); const colorInput = document.getElementById('new-pkg-color'); if (!nameInput.value || !priceInput.value) { showCustomAlert("Preencha o nome e o preço normal do pacote."); return; } packages.push({ id: packages.length > 0 ? Math.max(...packages.map(p => p.id)) + 1 : 1, name: nameInput.value, price: parseFloat(priceInput.value), promoPrice: promoInput.value ? parseFloat(promoInput.value) : "", color: colorInput.value, items: [] }); nameInput.value = ""; priceInput.value = ""; promoInput.value = ""; renderAdminPackages(); }
+        function deletePackageTemp(id) { showCustomConfirm("Tem certeza que deseja excluir este pacote?", () => { packages = packages.filter(pkg => pkg.id !== id); renderAdminPackages(); }); }
 
-        function addNewPackageTemp() {
-            const nameInput = document.getElementById('new-pkg-name'); 
-            const priceInput = document.getElementById('new-pkg-price'); 
-            const promoInput = document.getElementById('new-pkg-promo'); 
-            const colorInput = document.getElementById('new-pkg-color');
-            
-            if (!nameInput.value || !priceInput.value) { showCustomAlert("Preencha o nome e o preço normal do pacote."); return; }
-            packages.push({ 
-                id: packages.length > 0 ? Math.max(...packages.map(p => p.id)) + 1 : 1, 
-                name: nameInput.value, 
-                price: parseFloat(priceInput.value), 
-                promoPrice: promoInput.value ? parseFloat(promoInput.value) : "", 
-                color: colorInput.value, 
-                items: [] 
-            });
-            nameInput.value = ""; priceInput.value = ""; promoInput.value = ""; 
-            renderAdminPackages();
-        }
-
-        function deletePackageTemp(id) { 
-            showCustomConfirm("Tem certeza que deseja excluir este pacote?", () => {
-                packages = packages.filter(pkg => pkg.id !== id); 
-                renderAdminPackages(); 
-            });
-        }
-
-        // --- ADMIN SOBRE NÓS ---
-        document.getElementById('new-card-img').addEventListener('change', function(e) {
-            const file = e.target.files[0]; 
-            const reader = new FileReader();
-            reader.onloadend = function() { tempNewCardBase64 = reader.result; }
-            if (file) reader.readAsDataURL(file);
-        });
+        document.getElementById('new-card-img').addEventListener('change', function(e) { const file = e.target.files[0]; const reader = new FileReader(); reader.onloadend = function() { tempNewCardBase64 = reader.result; }
+            if (file) reader.readAsDataURL(file); });
 
         function renderAdminAboutCards() {
-            const container = document.getElementById('admin-about-cards-list');
-            container.innerHTML = '';
+            const container = document.getElementById('admin-about-cards-list'); container.innerHTML = '';
             if (aboutConfig.cards && aboutConfig.cards.length > 0) {
                 aboutConfig.cards.forEach((card, index) => {
-                    container.innerHTML += `
-                        <div class="admin-card-manager">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-                                <strong style="font-size:13px; color:var(--text-primary);">${card.title}</strong>
-                                <button class="btn-sm btn-danger" onclick="deleteAboutCardTemp(${index})" style="padding: 4px 8px; font-size:10px; margin:0;">Excluir</button>
-                            </div>
-                            <p style="font-size:11px; color:var(--text-secondary); margin-bottom:5px;">${card.desc}</p>
-                            <span style="font-size:10px; color:var(--primary-color);">Efeito: ${card.effect || 'Nenhum'}</span>
-                        </div>
-                    `;
+                    container.innerHTML += `<div class="admin-card-manager"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;"><strong style="font-size:13px; color:var(--text-primary);">${card.title}</strong><button class="btn-sm btn-danger" onclick="deleteAboutCardTemp(${index})" style="padding: 4px 8px; font-size:10px; margin:0;">Excluir</button></div><p style="font-size:11px; color:var(--text-secondary); margin-bottom:5px;">${card.desc}</p><span style="font-size:10px; color:var(--primary-color);">Efeito: ${card.effect || 'Nenhum'}</span></div>`;
                 });
-            } else {
-                container.innerHTML = '<span style="font-size:12px; color:var(--text-secondary);">Nenhum card adicionado.</span>';
-            }
+            } else { container.innerHTML = '<span style="font-size:12px; color:var(--text-secondary);">Nenhum card adicionado.</span>'; }
         }
 
+        // Lógica de adição de cards arrumada (Sempre vai empurrar o novo pro array original)
         function addAboutCardTemp() {
             const title = document.getElementById('new-card-title').value;
             const desc = document.getElementById('new-card-desc').value;
@@ -1637,117 +1055,30 @@
             
             renderAdminAboutCards();
         }
+        function deleteAboutCardTemp(index) { aboutConfig.cards.splice(index, 1); renderAdminAboutCards(); }
 
-        function deleteAboutCardTemp(index) {
-            aboutConfig.cards.splice(index, 1);
-            renderAdminAboutCards();
-        }
-
-        // --- ADMIN PRODUTOS PRONTOS ---
-        function previewProdTemp(event) {
-            const file = event.target.files[0]; 
-            const reader = new FileReader();
-            reader.onloadend = function() { tempNewProdBase64 = reader.result; }
-            if (file) reader.readAsDataURL(file);
-        }
-
+        function previewProdTemp(event) { const file = event.target.files[0]; const reader = new FileReader(); reader.onloadend = function() { tempNewProdBase64 = reader.result; }
+            if (file) reader.readAsDataURL(file); }
         function renderAdminProducts() {
-            const container = document.getElementById('admin-products-list');
-            container.innerHTML = '';
-            if (!readyProducts || readyProducts.length === 0) {
-                container.innerHTML = '<span style="font-size:12px; color:var(--text-secondary);">Nenhum produto pronto adicionado.</span>';
-                return;
-            }
-            readyProducts.forEach(prod => {
-                container.innerHTML += `
-                    <div class="admin-item-form" style="border-color:var(--primary-color);">
-                        <input type="text" id="edit-prod-title-${prod.id}" value="${prod.title}" style="margin-bottom: 8px;">
-                        <input type="number" id="edit-prod-price-${prod.id}" value="${prod.price}" style="margin-bottom: 8px;">
-                        <textarea id="edit-prod-desc-${prod.id}" style="margin-bottom: 8px; min-height: 50px;">${prod.desc}</textarea>
-                        <button class="btn-sm btn-danger" onclick="deleteProductTemp(${prod.id})">Excluir Produto</button>
-                    </div>
-                `;
-            });
+            const container = document.getElementById('admin-products-list'); container.innerHTML = ''; if (!readyProducts || readyProducts.length === 0) { container.innerHTML = '<span style="font-size:12px; color:var(--text-secondary);">Nenhum produto pronto adicionado.</span>'; return; }
+            readyProducts.forEach(prod => { container.innerHTML += `<div class="admin-item-form" style="border-color:var(--primary-color);"><input type="text" id="edit-prod-title-${prod.id}" value="${prod.title}" style="margin-bottom: 8px;"><input type="number" id="edit-prod-price-${prod.id}" value="${prod.price}" style="margin-bottom: 8px;"><textarea id="edit-prod-desc-${prod.id}" style="margin-bottom: 8px; min-height: 50px;">${prod.desc}</textarea><button class="btn-sm btn-danger" onclick="deleteProductTemp(${prod.id})">Excluir Produto</button></div>`; });
         }
+        function addNewProductTemp() { const title = document.getElementById('new-prod-title').value; const desc = document.getElementById('new-prod-desc').value; const price = document.getElementById('new-prod-price').value; if (!title || !price) { showCustomAlert("Preencha título e preço do produto."); return; } readyProducts.push({ id: readyProducts.length > 0 ? Math.max(...readyProducts.map(p => p.id)) + 1 : 1, title: title, desc: desc || "", price: parseFloat(price), img: tempNewProdBase64 || null }); document.getElementById('new-prod-title').value = ""; document.getElementById('new-prod-desc').value = ""; document.getElementById('new-prod-price').value = ""; tempNewProdBase64 = null; renderAdminProducts(); }
+        function deleteProductTemp(id) { showCustomConfirm("Tem certeza que deseja excluir este produto pronto?", () => { readyProducts = readyProducts.filter(p => p.id !== id); renderAdminProducts(); }); }
 
-        function addNewProductTemp() {
-            const title = document.getElementById('new-prod-title').value;
-            const desc = document.getElementById('new-prod-desc').value;
-            const price = document.getElementById('new-prod-price').value;
-            
-            if (!title || !price) { showCustomAlert("Preencha título e preço do produto."); return; }
-            
-            readyProducts.push({
-                id: readyProducts.length > 0 ? Math.max(...readyProducts.map(p => p.id)) + 1 : 1,
-                title: title,
-                desc: desc || "",
-                price: parseFloat(price),
-                img: tempNewProdBase64 || null
-            });
-            
-            document.getElementById('new-prod-title').value = "";
-            document.getElementById('new-prod-desc').value = "";
-            document.getElementById('new-prod-price').value = "";
-            tempNewProdBase64 = null;
-            renderAdminProducts();
-        }
-
-        function deleteProductTemp(id) {
-            showCustomConfirm("Tem certeza que deseja excluir este produto pronto?", () => {
-                readyProducts = readyProducts.filter(p => p.id !== id);
-                renderAdminProducts();
-            });
-        }
-
-        // ==========================================================================
-        // INTEGRAÇÃO DE DADOS E FIREBASE
-        // ==========================================================================
         window.updateAppDataFromFirebase = function(data) {
             if (data) {
-                // Listas
-                excelItems = data.excelItems || [];
-                packages = data.packages || [];
-                readyProducts = data.readyProducts || [];
-                
-                // Textos
-                if (data.homeTexts) homeTexts = data.homeTexts;
-                if (data.pkgTexts) pkgTexts = data.pkgTexts;
-                
-                // Sobre nós
+                excelItems = data.excelItems || []; packages = data.packages || []; readyProducts = data.readyProducts || [];
+                if (data.homeTexts) homeTexts = data.homeTexts; if (data.pkgTexts) pkgTexts = data.pkgTexts;
                 if (data.aboutConfig) aboutConfig = data.aboutConfig;
-
-                // UI Textos Padrão
-                document.getElementById('ui-home-title').innerText = homeTexts.title || "Soluções sob medida";
-                document.getElementById('ui-home-desc').innerText = homeTexts.desc || "Sistemas, dashboards e planilhas de alto nível.";
-                
-                // Imagem Principal
-                if (data.homeImage) {
-                    document.getElementById('editable-home-img').src = data.homeImage;
-                    tempImageBase64 = data.homeImage;
-                }
-
-                // Promoção
-                if (data.promoConfig) {
-                    promoConfig = data.promoConfig;
-                    if (!promoConfig.discounts) promoConfig.discounts = {};
-                }
+                document.getElementById('ui-home-title').innerText = homeTexts.title || "Soluções sob medida"; document.getElementById('ui-home-desc').innerText = homeTexts.desc || "Sistemas, dashboards e planilhas de alto nível.";
+                if (data.homeImage) { document.getElementById('editable-home-img').src = data.homeImage; tempImageBase64 = data.homeImage; }
+                if (data.promoConfig) { promoConfig = data.promoConfig; if (!promoConfig.discounts) promoConfig.discounts = {}; }
             } else {
-                // Primeira vez sem banco
-                excelItems = [
-                    { id: 1, name: "Dashboards", price: 300.00, description: "Dashboard financeiro\nGráficos dinâmicos\nExportação para PDF" },
-                    { id: 2, name: "Análise de Dados", price: 250.00, description: "Limpeza de dados\nConexões com APIs" }
-                ];
-                packages = [];
-                readyProducts = [];
+                excelItems = [ { id: 1, name: "Dashboards", price: 300.00, description: "Dashboard financeiro\nGráficos dinâmicos\nExportação para PDF" }, { id: 2, name: "Análise de Dados", price: 250.00, description: "Limpeza de dados\nConexões com APIs" } ]; packages = []; readyProducts = [];
             }
 
-            checkPromoStatus();
-            clearInterval(countdownInterval);
-            if(promoConfig.active) {
-                countdownInterval = setInterval(checkPromoStatus, 1000);
-            }
-
-            // Atualiza em tempo real as telas
+            checkPromoStatus(); clearInterval(countdownInterval); if(promoConfig.active) { countdownInterval = setInterval(checkPromoStatus, 1000); }
             if(document.getElementById('order-screen').style.display === 'flex') renderExcelChecklist();
             if(document.getElementById('packages-screen').style.display === 'flex') renderPackagesList();
             if(document.getElementById('products-screen').style.display === 'flex') renderProductsList();
@@ -1755,84 +1086,32 @@
         };
 
         function saveAllAdminChanges() {
-            if(!window.firebaseDb) {
-                showCustomAlert("Erro: Conexão com o servidor Firebase não estabelecida.");
-                return;
-            }
+            if(!window.firebaseDb) { showCustomAlert("Erro: Conexão com o servidor Firebase não estabelecida."); return; }
 
-            // Salvar Itens
-            excelItems.forEach(item => { 
-                const row = document.getElementById(`admin-row-${item.id}`); 
-                if (row) { 
-                    item.name = row.querySelector('.edit-name').value; 
-                    item.price = parseFloat(row.querySelector('.edit-price').value); 
-                    item.description = row.querySelector('.edit-desc').value;
-                } 
-            });
+            excelItems.forEach(item => { const row = document.getElementById(`admin-row-${item.id}`); if (row) { item.name = row.querySelector('.edit-name').value; item.price = parseFloat(row.querySelector('.edit-price').value); item.description = row.querySelector('.edit-desc').value; } });
+            packages.forEach(pkg => { const row = document.getElementById(`admin-pkg-${pkg.id}`); if(row) { pkg.name = row.querySelector('.edit-pkg-name').value; pkg.price = parseFloat(row.querySelector('.edit-pkg-price').value); const promoVal = row.querySelector('.edit-pkg-promo').value; pkg.promoPrice = promoVal ? parseFloat(promoVal) : ""; pkg.color = row.querySelector('.edit-pkg-color').value; const checks = row.querySelectorAll('.pkg-item-check'); pkg.items = []; checks.forEach(check => { if(check.checked) pkg.items.push(parseInt(check.getAttribute('data-item-id'))); }); } });
+            readyProducts.forEach(prod => { const titleInput = document.getElementById(`edit-prod-title-${prod.id}`); const priceInput = document.getElementById(`edit-prod-price-${prod.id}`); const descInput = document.getElementById(`edit-prod-desc-${prod.id}`); if(titleInput) prod.title = titleInput.value; if(priceInput) prod.price = parseFloat(priceInput.value); if(descInput) prod.desc = descInput.value; });
 
-            // Salvar Pacotes
-            packages.forEach(pkg => {
-                const row = document.getElementById(`admin-pkg-${pkg.id}`);
-                if(row) {
-                    pkg.name = row.querySelector('.edit-pkg-name').value; 
-                    pkg.price = parseFloat(row.querySelector('.edit-pkg-price').value);
-                    const promoVal = row.querySelector('.edit-pkg-promo').value; 
-                    pkg.promoPrice = promoVal ? parseFloat(promoVal) : "";
-                    pkg.color = row.querySelector('.edit-pkg-color').value;
-                    const checks = row.querySelectorAll('.pkg-item-check'); 
-                    pkg.items = [];
-                    checks.forEach(check => { if(check.checked) pkg.items.push(parseInt(check.getAttribute('data-item-id'))); });
-                }
-            });
+            homeTexts.title = document.getElementById('admin-home-title').value; homeTexts.desc = document.getElementById('admin-home-desc').value; pkgTexts.title = document.getElementById('admin-pkg-title').value; pkgTexts.desc = document.getElementById('admin-pkg-desc').value;
 
-            // Salvar Produtos Prontos Editados
-            readyProducts.forEach(prod => {
-                const titleInput = document.getElementById(`edit-prod-title-${prod.id}`);
-                const priceInput = document.getElementById(`edit-prod-price-${prod.id}`);
-                const descInput = document.getElementById(`edit-prod-desc-${prod.id}`);
-                if(titleInput) prod.title = titleInput.value;
-                if(priceInput) prod.price = parseFloat(priceInput.value);
-                if(descInput) prod.desc = descInput.value;
-            });
-
-            // Salvar Textos e Sobre Nós
-            homeTexts.title = document.getElementById('admin-home-title').value;
-            homeTexts.desc = document.getElementById('admin-home-desc').value;
-            pkgTexts.title = document.getElementById('admin-pkg-title').value;
-            pkgTexts.desc = document.getElementById('admin-pkg-desc').value;
-
+            // Salvar configurações do ABOUT US
             aboutConfig.title = document.getElementById('admin-about-title').value;
             aboutConfig.desc = document.getElementById('admin-about-desc').value;
+            aboutConfig.pageText = document.getElementById('admin-about-page-text').value; // Salva o texto livre
             if(tempAboutCoverBase64) aboutConfig.coverImg = tempAboutCoverBase64;
             if(tempAboutProfileBase64) aboutConfig.profileImg = tempAboutProfileBase64;
+            // Os cards já foram adicionados no objeto global `aboutConfig.cards` pela função `addAboutCardTemp()`
 
             const currentImage = tempImageBase64 || document.getElementById('editable-home-img').src;
 
-            // Salvar Promoção
             promoConfig.active = document.getElementById('promo-toggle').checked;
             if (promoConfig.active) {
-                const dateVal = document.getElementById('promo-end-date').value; 
-                const hVal = document.getElementById('promo-end-hour').value || 0; 
-                const mVal = document.getElementById('promo-end-minute').value || 0;
-                
+                const dateVal = document.getElementById('promo-end-date').value; const hVal = document.getElementById('promo-end-hour').value || 0; const mVal = document.getElementById('promo-end-minute').value || 0;
                 if (!dateVal) { showCustomAlert("Para ativar a promoção, defina a Data de Fim."); return; }
-                
-                const endDate = new Date(`${dateVal}T00:00:00`); 
-                endDate.setHours(hVal, mVal, 0, 0); 
-                promoConfig.endTimestamp = endDate.getTime();
-                
-                excelItems.forEach(item => { 
-                    const typeSel = document.getElementById(`promo-type-${item.id}`); 
-                    const valIn = document.getElementById(`promo-val-${item.id}`); 
-                    if(typeSel && valIn && valIn.value !== "") { 
-                        promoConfig.discounts[item.id] = { type: typeSel.value, value: parseFloat(valIn.value) }; 
-                    } else { 
-                        delete promoConfig.discounts[item.id]; 
-                    } 
-                });
+                const endDate = new Date(`${dateVal}T00:00:00`); endDate.setHours(hVal, mVal, 0, 0); promoConfig.endTimestamp = endDate.getTime();
+                excelItems.forEach(item => { const typeSel = document.getElementById(`promo-type-${item.id}`); const valIn = document.getElementById(`promo-val-${item.id}`); if(typeSel && valIn && valIn.value !== "") { promoConfig.discounts[item.id] = { type: typeSel.value, value: parseFloat(valIn.value) }; } else { delete promoConfig.discounts[item.id]; } });
             }
 
-            // Envio para o Firebase
             window.firebaseSet(window.firebaseRef(window.firebaseDb, 'settings'), {
                 excelItems: excelItems,
                 packages: packages,
@@ -1843,11 +1122,8 @@
                 pkgTexts: pkgTexts,
                 aboutConfig: aboutConfig
             }).then(() => {
-                showCustomAlert("Suas configurações foram salvas na nuvem com sucesso!", "Sucesso", true); 
-                goBack('home-screen');
-            }).catch((error) => {
-                showCustomAlert("Erro ao salvar no servidor: " + error.message);
-            });
+                showCustomAlert("Suas configurações foram salvas na nuvem com sucesso!", "Sucesso", true); goBack('home-screen');
+            }).catch((error) => { showCustomAlert("Erro ao salvar no servidor: " + error.message); });
         }
     </script>
 
@@ -1868,19 +1144,10 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Exporta o banco de dados para os comandos gerais
-        window.firebaseDb = db;
-        window.firebaseSet = set;
-        window.firebaseRef = ref;
+        window.firebaseDb = db; window.firebaseSet = set; window.firebaseRef = ref;
 
-        // Escuta o Banco de Dados em tempo real
         const settingsRef = ref(db, 'settings');
-        onValue(settingsRef, (snapshot) => {
-            const data = snapshot.val();
-            if(window.updateAppDataFromFirebase) {
-                window.updateAppDataFromFirebase(data);
-            }
-        });
+        onValue(settingsRef, (snapshot) => { const data = snapshot.val(); if(window.updateAppDataFromFirebase) { window.updateAppDataFromFirebase(data); } });
     </script>
 </body>
 </html>
