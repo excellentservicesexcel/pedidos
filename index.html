@@ -228,7 +228,7 @@
         }
 
         /* ==========================================================================
-           LISTAS, CHECKLISTS E DETALHES DE ITENS (ATUALIZAÇÃO CIRÚRGICA)
+           LISTAS, CHECKLISTS E DETALHES DE ITENS
            ========================================================================== */
         .section-title { 
             color: var(--text-label); 
@@ -383,11 +383,27 @@
         .pkg-list.included li { color: var(--success); }
         .pkg-list.excluded li { color: var(--danger); opacity: 0.7; }
 
+        /* --- ESTILOS DE PRODUTOS PRONTOS --- */
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--input-bg);
+            border-radius: 10px;
+            border: 1px solid var(--input-border);
+            overflow: hidden;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+        .product-card.active { border-color: var(--primary-color); }
+        .product-img { width: 100%; height: 140px; object-fit: cover; cursor: pointer; }
+        .product-info { padding: 15px; cursor: pointer; }
+        .product-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+
         /* ==========================================================================
-           TELA SOBRE NÓS (NOVO)
+           TELA SOBRE NÓS
            ========================================================================== */
         #about-screen {
-            padding: 0; /* Remove padding padrão para a capa encostar nas bordas */
+            padding: 0;
             padding-bottom: 120px;
         }
         .about-cover {
@@ -465,6 +481,24 @@
             color: var(--text-secondary);
             line-height: 1.4;
         }
+
+        /* Botão Flutuante Sobre Nós */
+        .btn-floating-back {
+            position: fixed;
+            bottom: 25px;
+            right: 20px;
+            background-color: var(--bg-app);
+            color: var(--text-primary);
+            border: 2px solid var(--primary-color);
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            cursor: pointer;
+            z-index: 1000;
+            transition: 0.2s;
+        }
+        .btn-floating-back:active { transform: scale(0.95); }
 
         /* Efeitos Especiais para Cards */
         .effect-fadeIn { animation: cardFadeIn 1s ease forwards; opacity: 0; }
@@ -576,7 +610,8 @@
             
             <button class="btn-home" onclick="openPackagesScreen()">Pacotes</button>
             <button class="btn-home" onclick="openOrderScreen()">Personalizado</button>
-            <button class="btn-home" style="background-color: transparent; border-color: var(--primary-color); color: var(--primary-color);" onclick="openAboutScreen()">Sobre Nós</button>
+            <button class="btn-home" onclick="openProductsScreen()">Produtos prontos</button>
+            <button class="btn-home" onclick="openAboutScreen()">Sobre Nós</button>
         </div>
 
         <div id="packages-screen" class="screen">
@@ -594,10 +629,15 @@
             <div class="checklist-group" id="excel-checklist"></div>
         </div>
 
+        <div id="products-screen" class="screen">
+            <button class="btn btn-outline" style="margin-bottom: 20px; padding: 10px;" onclick="goBack('home-screen')">⬅ Voltar</button>
+            <span class="section-title" id="ui-prod-title" style="font-size: 18px; color: var(--text-primary);">Produtos Prontos</span>
+            <p id="ui-prod-desc" style="color: var(--text-secondary); font-size: 13px; margin-bottom: 20px; white-space: pre-line;">Selecione os produtos disponíveis para adquirir.</p>
+            <div class="checklist-group" id="products-list"></div>
+        </div>
+
         <div id="about-screen" class="screen">
-            <div class="about-cover" id="ui-about-cover" style="background-image: url('https://via.placeholder.com/600x200?text=Capa+Profissional');">
-                <button class="btn btn-outline" style="position: absolute; top: 15px; left: 15px; padding: 8px 15px; border: none; background: rgba(0,0,0,0.5); color: white;" onclick="goBack('home-screen')">⬅ Voltar</button>
-            </div>
+            <div class="about-cover" id="ui-about-cover" style="background-image: url('https://via.placeholder.com/600x200?text=Capa+Profissional');"></div>
             
             <div class="about-profile-container">
                 <img src="https://via.placeholder.com/150x150?text=Perfil" id="ui-about-profile" class="about-profile-img" alt="Perfil">
@@ -605,8 +645,9 @@
                 <p class="about-desc" id="ui-about-desc">Transformando dados em decisões inteligentes. Especialistas em soluções corporativas.</p>
             </div>
 
-            <div class="about-cards-container" id="ui-about-cards-list">
-                </div>
+            <div class="about-cards-container" id="ui-about-cards-list"></div>
+            
+            <button class="btn-floating-back" onclick="goBack('home-screen')">⬅ Voltar</button>
         </div>
 
         <div id="total-wrapper-global">
@@ -798,6 +839,18 @@
                 <div id="admin-about-cards-list" style="margin-top: 15px; border-top: 1px solid var(--input-border); padding-top: 10px;"></div>
             </div>
 
+            <div class="admin-section-divider">6. Produtos Prontos</div>
+            <div class="admin-item-form">
+                <label>Imagem do Produto:</label>
+                <input type="file" accept="image/*" onchange="previewProdTemp(event)" style="margin-bottom: 10px;">
+                <input type="text" id="new-prod-title" placeholder="Título (Ex: Planilha de Fluxo)" style="margin-bottom: 10px;">
+                <textarea id="new-prod-desc" placeholder="Descrição curta do produto" style="margin-bottom: 10px;"></textarea>
+                <input type="number" id="new-prod-price" placeholder="Preço (Ex: 50.00)" style="margin-bottom: 10px;">
+                <button class="btn btn-outline" style="color: var(--primary-color); border-color: var(--primary-color);" onclick="addNewProductTemp()">+ Adicionar Produto</button>
+                
+                <div id="admin-products-list" style="margin-top: 15px; border-top: 1px solid var(--input-border); padding-top: 10px;"></div>
+            </div>
+
             <button class="btn btn-master-save" onclick="saveAllAdminChanges()">💾 SALVAR TUDO</button>
             <button class="btn btn-outline" style="margin-bottom: 40px;" onclick="goBack('home-screen')">Sair sem Salvar</button>
         </div>
@@ -814,6 +867,7 @@
         // Estruturas de Dados Padrão (serão substituídas pelo Firebase)
         let excelItems = [];
         let packages = [];
+        let readyProducts = []; // NOVA ESTRUTURA PARA PRODUTOS PRONTOS
         let promoConfig = { active: false, endTimestamp: null, discounts: {} };
         
         // Textos Dinâmicos
@@ -834,6 +888,7 @@
         let tempAboutCoverBase64 = null;
         let tempAboutProfileBase64 = null;
         let tempNewCardBase64 = null;
+        let tempNewProdBase64 = null; // TEMP PARA IMAGEM DO PRODUTO
         let countdownInterval;
 
         // ==========================================================================
@@ -936,7 +991,7 @@
             const target = document.getElementById(targetScreen);
             target.style.display = 'flex';
 
-            if(targetScreen === 'order-screen' || targetScreen === 'packages-screen') {
+            if(targetScreen === 'order-screen' || targetScreen === 'packages-screen' || targetScreen === 'products-screen') {
                 document.getElementById('total-wrapper-global').style.display = 'flex';
                 updateTotal();
             } else {
@@ -946,6 +1001,7 @@
 
         function openOrderScreen() { renderExcelChecklist(); changeScreen('order-screen'); }
         function openPackagesScreen() { renderPackagesList(); changeScreen('packages-screen'); }
+        function openProductsScreen() { renderProductsList(); changeScreen('products-screen'); }
         function openAboutScreen() { renderAboutScreen(); changeScreen('about-screen'); }
         function goBack(screen) { changeScreen(screen); }
 
@@ -999,21 +1055,17 @@
         }
 
         function toggleCustomItem(event, id) {
-            // Previne conflitos se o usuário clicou no checkbox diretamente
             if(event && event.target.tagName === 'INPUT') return;
-            
             const checkbox = document.getElementById(`item-${id}`);
             const container = document.getElementById(`container-item-${id}`);
             if(!checkbox) return;
-
             checkbox.checked = !checkbox.checked;
             container.classList.toggle('active', checkbox.checked);
             updateTotal();
         }
 
-        // Adição Cirúrgica: Mostrar/Ocultar Detalhes do Item Personalizado
         function toggleItemDetails(event, id) {
-            event.stopPropagation(); // Impede que o clique marque o item
+            event.stopPropagation();
             const detailsBox = document.getElementById(`item-details-${id}`);
             if (detailsBox) {
                 if (detailsBox.style.display === 'block') {
@@ -1033,7 +1085,6 @@
             const container = document.getElementById('packages-list');
             container.innerHTML = '';
 
-            // Atualiza textos da tela
             document.getElementById('ui-pkg-title').innerText = pkgTexts.title || "Nossos Pacotes Especiais";
             document.getElementById('ui-pkg-desc').innerText = pkgTexts.desc || "";
 
@@ -1050,8 +1101,6 @@
                     ? `<div style="text-align: right;"><span class="price-old">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span><span class="price-new" style="color:${pkg.color};">R$ ${finalPrice.toFixed(2).replace('.', ',')}</span></div>`
                     : `<span class="check-item-price" style="font-size:15px; font-weight:bold; color:${pkg.color};">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span>`;
 
-                // Construção Cirúrgica: "Tudo de [Pacote]"
-                // Compara os itens do pacote com todos os itens disponíveis
                 let listIncluded = '';
                 let listExcluded = '';
                 
@@ -1112,7 +1161,6 @@
             updateTotal();
         }
 
-        // Mostrar detalhes completos do pacote
         function togglePkgDetailsFull(event, pkgId) {
             event.stopPropagation();
             const detailsBox = document.getElementById(`pkg-details-${pkgId}`);
@@ -1126,6 +1174,48 @@
                     btn.innerText = `Ocultar Detalhes ▲`;
                 }
             }
+        }
+
+        // ==========================================================================
+        // RENDERIZAÇÃO: TELA PRODUTOS PRONTOS
+        // ==========================================================================
+        function renderProductsList() {
+            const container = document.getElementById('products-list');
+            container.innerHTML = '';
+            
+            if (!readyProducts || readyProducts.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-secondary); font-size:14px; text-align:center;">Nenhum produto pronto disponível no momento.</p>';
+                return;
+            }
+            
+            readyProducts.forEach(prod => {
+                container.innerHTML += `
+                    <div class="product-card" id="prod-card-${prod.id}">
+                        ${prod.img ? `<img src="${prod.img}" class="product-img" onclick="toggleProduct(event, ${prod.id})">` : ''}
+                        <div class="product-info" onclick="toggleProduct(event, ${prod.id})">
+                            <div class="product-header-row">
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <input type="checkbox" id="prod-${prod.id}" data-price="${prod.price}" style="width:18px;height:18px;accent-color:var(--primary-color);pointer-events:none;">
+                                    <span style="font-weight:bold; color:var(--text-primary); font-size: 15px;">${prod.title}</span>
+                                </div>
+                                <span style="font-weight:bold; color:var(--primary-color);">R$ ${parseFloat(prod.price).toFixed(2).replace('.',',')}</span>
+                            </div>
+                            <p style="font-size:13px; color:var(--text-secondary);">${prod.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            updateTotal();
+        }
+
+        function toggleProduct(event, id) {
+            if(event && event.target.tagName === 'INPUT') return;
+            const checkbox = document.getElementById(`prod-${id}`);
+            const card = document.getElementById(`prod-card-${id}`);
+            if(!checkbox) return;
+            checkbox.checked = !checkbox.checked;
+            card.classList.toggle('active', checkbox.checked);
+            updateTotal();
         }
 
         // ==========================================================================
@@ -1169,6 +1259,12 @@
             if(packages) {
                 packages.forEach(pkg => {
                     const checkbox = document.getElementById(`pkg-${pkg.id}`);
+                    if (checkbox && checkbox.checked) total += parseFloat(checkbox.getAttribute('data-price'));
+                });
+            }
+            if(readyProducts) {
+                readyProducts.forEach(prod => {
+                    const checkbox = document.getElementById(`prod-${prod.id}`);
                     if (checkbox && checkbox.checked) total += parseFloat(checkbox.getAttribute('data-price'));
                 });
             }
@@ -1253,6 +1349,15 @@
                 }
             });
 
+            readyProducts.forEach(prod => {
+                const checkbox = document.getElementById(`prod-${prod.id}`);
+                if (checkbox && checkbox.checked) {
+                    let finalP = parseFloat(checkbox.getAttribute('data-price'));
+                    itensSelecionados.push(`🛍️ *[PRODUTO PRONTO]* ${prod.title} (R$ ${finalP.toFixed(2).replace('.', ',')})`);
+                    total += finalP;
+                }
+            });
+
             let relatorio = `*NOVO PEDIDO EXCELLENT SERVICES*%0A%0A`;
             relatorio += `*Nome:* ${nome}%0A*Finalidade:* ${finalidade}%0A*Urgência:* ${urgencia}%0A%0A`;
             relatorio += `*Itens Selecionados:*%0A${itensSelecionados.join('%0A')}%0A%0A`;
@@ -1284,6 +1389,7 @@
                 tempAboutCoverBase64 = null;
                 tempAboutProfileBase64 = null;
                 tempNewCardBase64 = null;
+                tempNewProdBase64 = null;
                 
                 // Carregar valores para formulários do admin
                 document.getElementById('admin-home-title').value = homeTexts.title || "";
@@ -1297,6 +1403,7 @@
                 renderAdminLists();
                 renderAdminPackages();
                 renderAdminAboutCards();
+                renderAdminProducts();
                 loadAdminPromoConfig();
                 
                 changeScreen('admin-panel-screen');
@@ -1325,7 +1432,6 @@
             }
         }
 
-        // Leitor genérico de imagens base64
         function processImageFile(event, targetVar) {
             const file = event.target.files[0]; 
             const reader = new FileReader();
@@ -1514,9 +1620,10 @@
             const effect = document.getElementById('new-card-effect').value;
             
             if(!title || !desc) { showCustomAlert("Preencha título e descrição do card."); return; }
+            if (!aboutConfig.cards) aboutConfig.cards = [];
 
             aboutConfig.cards.push({
-                img: tempNewCardBase64 || "https://via.placeholder.com/300x150?text=Imagem",
+                img: tempNewCardBase64 || null,
                 title: title,
                 desc: desc,
                 effect: effect === 'none' ? '' : effect
@@ -1536,6 +1643,62 @@
             renderAdminAboutCards();
         }
 
+        // --- ADMIN PRODUTOS PRONTOS ---
+        function previewProdTemp(event) {
+            const file = event.target.files[0]; 
+            const reader = new FileReader();
+            reader.onloadend = function() { tempNewProdBase64 = reader.result; }
+            if (file) reader.readAsDataURL(file);
+        }
+
+        function renderAdminProducts() {
+            const container = document.getElementById('admin-products-list');
+            container.innerHTML = '';
+            if (!readyProducts || readyProducts.length === 0) {
+                container.innerHTML = '<span style="font-size:12px; color:var(--text-secondary);">Nenhum produto pronto adicionado.</span>';
+                return;
+            }
+            readyProducts.forEach(prod => {
+                container.innerHTML += `
+                    <div class="admin-item-form" style="border-color:var(--primary-color);">
+                        <input type="text" id="edit-prod-title-${prod.id}" value="${prod.title}" style="margin-bottom: 8px;">
+                        <input type="number" id="edit-prod-price-${prod.id}" value="${prod.price}" style="margin-bottom: 8px;">
+                        <textarea id="edit-prod-desc-${prod.id}" style="margin-bottom: 8px; min-height: 50px;">${prod.desc}</textarea>
+                        <button class="btn-sm btn-danger" onclick="deleteProductTemp(${prod.id})">Excluir Produto</button>
+                    </div>
+                `;
+            });
+        }
+
+        function addNewProductTemp() {
+            const title = document.getElementById('new-prod-title').value;
+            const desc = document.getElementById('new-prod-desc').value;
+            const price = document.getElementById('new-prod-price').value;
+            
+            if (!title || !price) { showCustomAlert("Preencha título e preço do produto."); return; }
+            
+            readyProducts.push({
+                id: readyProducts.length > 0 ? Math.max(...readyProducts.map(p => p.id)) + 1 : 1,
+                title: title,
+                desc: desc || "",
+                price: parseFloat(price),
+                img: tempNewProdBase64 || null
+            });
+            
+            document.getElementById('new-prod-title').value = "";
+            document.getElementById('new-prod-desc').value = "";
+            document.getElementById('new-prod-price').value = "";
+            tempNewProdBase64 = null;
+            renderAdminProducts();
+        }
+
+        function deleteProductTemp(id) {
+            showCustomConfirm("Tem certeza que deseja excluir este produto pronto?", () => {
+                readyProducts = readyProducts.filter(p => p.id !== id);
+                renderAdminProducts();
+            });
+        }
+
         // ==========================================================================
         // INTEGRAÇÃO DE DADOS E FIREBASE
         // ==========================================================================
@@ -1544,6 +1707,7 @@
                 // Listas
                 excelItems = data.excelItems || [];
                 packages = data.packages || [];
+                readyProducts = data.readyProducts || [];
                 
                 // Textos
                 if (data.homeTexts) homeTexts = data.homeTexts;
@@ -1574,6 +1738,7 @@
                     { id: 2, name: "Análise de Dados", price: 250.00, description: "Limpeza de dados\nConexões com APIs" }
                 ];
                 packages = [];
+                readyProducts = [];
             }
 
             checkPromoStatus();
@@ -1585,6 +1750,7 @@
             // Atualiza em tempo real as telas
             if(document.getElementById('order-screen').style.display === 'flex') renderExcelChecklist();
             if(document.getElementById('packages-screen').style.display === 'flex') renderPackagesList();
+            if(document.getElementById('products-screen').style.display === 'flex') renderProductsList();
             if(document.getElementById('about-screen').style.display === 'flex') renderAboutScreen();
         };
 
@@ -1617,6 +1783,16 @@
                     pkg.items = [];
                     checks.forEach(check => { if(check.checked) pkg.items.push(parseInt(check.getAttribute('data-item-id'))); });
                 }
+            });
+
+            // Salvar Produtos Prontos Editados
+            readyProducts.forEach(prod => {
+                const titleInput = document.getElementById(`edit-prod-title-${prod.id}`);
+                const priceInput = document.getElementById(`edit-prod-price-${prod.id}`);
+                const descInput = document.getElementById(`edit-prod-desc-${prod.id}`);
+                if(titleInput) prod.title = titleInput.value;
+                if(priceInput) prod.price = parseFloat(priceInput.value);
+                if(descInput) prod.desc = descInput.value;
             });
 
             // Salvar Textos e Sobre Nós
@@ -1660,6 +1836,7 @@
             window.firebaseSet(window.firebaseRef(window.firebaseDb, 'settings'), {
                 excelItems: excelItems,
                 packages: packages,
+                readyProducts: readyProducts,
                 promoConfig: promoConfig,
                 homeImage: currentImage,
                 homeTexts: homeTexts,
