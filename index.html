@@ -43,7 +43,7 @@
 
         .app-container {
             width: 100%;
-            max-width: 900px; /* Ajustado de 420px para 900px para expandir no PC */
+            max-width: 100%; /* Ajuste cirúrgico: expande para 100% no computador */
             background-color: var(--bg-app);
             min-height: 100vh;
             position: relative;
@@ -97,6 +97,10 @@
             flex-direction: column;
             animation: fadeIn 0.4s ease-in-out;
             position: relative;
+            /* Ajuste cirúrgico: Mantém o layout e tamanho dos botões consistentes, centralizando no PC */
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
         }
 
         @keyframes fadeIn {
@@ -491,7 +495,7 @@
             opacity: 0; animation: fadeInModal 0.3s forwards;
         }
         .modal-content {
-            background: var(--bg-app); width: 90%; max-width: 500px; /* Ajustado de 380px para 500px */
+            background: var(--bg-app); width: 90%; max-width: 380px;
             padding: 25px; border-radius: 20px; border: 1px solid var(--input-border);
             box-shadow: 0 15px 40px rgba(0,0,0,0.8); position: relative;
             transform: translateY(20px); animation: slideUpModal 0.3s forwards;
@@ -510,7 +514,7 @@
 
         #total-wrapper-global {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 100%; max-width: 900px; /* Ajustado de 420px para 900px para alinhar com o container principal */
+            width: 100%; max-width: 800px; /* Ajuste cirúrgico: acompanhando o limite da tela no PC */
             padding: 0 20px;
             display: none; align-items: center; gap: 10px; z-index: 50;
         }
