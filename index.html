@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Excellent Services - Pro</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         /* ==========================================================================
            RESET E VARIÁVEIS GERAIS
@@ -578,7 +579,6 @@
             <p id="ui-home-desc" style="color: var(--text-secondary); margin-bottom: 30px; font-size: 14px; white-space: pre-line;">Sistemas, dashboards e planilhas de alto nível.</p>
             
             <button class="btn-home" onclick="openPackagesScreen()">Pacotes</button>
-            <button class="btn-home" onclick="openOrderScreen()">Personalizado</button>
             <button class="btn-home" onclick="openProductsScreen()">Produtos prontos</button>
             <button class="btn-home" onclick="openAboutScreen()">Sobre Nós</button>
         </div>
@@ -633,6 +633,8 @@
                 <div class="form-group"><label for="urgencia">Urgência:</label><select id="urgencia"><option value="" disabled selected>Selecione o nível</option><option value="baixa">Baixa</option><option value="media">Média</option><option value="alta">Alta</option></select></div>
                 <div class="form-group"><label for="descricao">Detalhes / Descrição:</label><textarea id="descricao" placeholder="Escreva necessidades extras..."></textarea></div>
                 <button class="btn btn-success" style="margin-top: 5px;" onclick="submitOrderToWhatsApp()">Enviar para WhatsApp</button>
+                
+                <button class="btn btn-outline" id="btn-pdf" style="margin-top: 10px; border-color: var(--primary-color); color: var(--primary-color); display: none;" onclick="generatePDF()">📄 Baixar Orçamento em PDF</button>
             </div>
         </div>
 
@@ -658,7 +660,7 @@
         <div id="admin-auth-screen" class="screen">
             <div class="admin-box">
                 <h3>Acesso Restrito</h3>
-                <input type="password" id="admin-password-input" placeholder="Senha do Admin" style="margin-bottom: 15px;">
+                <input type="password" id="admin-password-input" placeholder="Senha de Acesso" style="margin-bottom: 15px;">
                 <button class="btn" onclick="authenticateAdmin()">Entrar</button>
                 <button class="btn btn-outline" onclick="goBack('home-screen')">Voltar</button>
             </div>
@@ -765,6 +767,7 @@
         let packages = [];
         let readyProducts = []; 
         let promoConfig = { active: false, endTimestamp: null, discounts: {} };
+        let isQuoteMode = false; // Flag para o modo de orçamento do admin
         
         let homeTexts = { title: "Soluções sob medida", desc: "Sistemas, dashboards e planilhas de alto nível." };
         let pkgTexts = { title: "Nossos Pacotes Especiais", desc: "Escolha o combo que melhor atende à sua necessidade." };
@@ -994,7 +997,20 @@
             }, 250);
         }
 
-        function openCheckoutModal() { document.getElementById('checkout-modal').style.display = 'flex'; if(promoConfig.active) { fireGoldenConfetti(); } }
+        function openCheckoutModal() { 
+            document.getElementById('checkout-modal').style.display = 'flex'; 
+            if(promoConfig.active) { fireGoldenConfetti(); } 
+            
+            const btnPdf = document.getElementById('btn-pdf');
+            // Só exibe a opção de PDF se estiver no modo de Orçamento (Personalizado) e com os itens personalizados abertos
+            if (btnPdf) {
+                if (isQuoteMode && document.getElementById('order-screen').style.display === 'flex') {
+                    btnPdf.style.display = 'block';
+                } else {
+                    btnPdf.style.display = 'none';
+                }
+            }
+        }
         function closeCheckoutModal() { document.getElementById('checkout-modal').style.display = 'none'; }
 
         function submitOrderToWhatsApp() {
@@ -1012,11 +1028,112 @@
             window.open(`https://wa.me/55${WHATSAPP_NUMBER}?text=${encodeURIComponent(relatorio)}`, '_blank'); closeCheckoutModal();
         }
 
+        // ==========================================================================
+        // GERAÇÃO DE PDF PROFISSIONAL (Modo Orçamento)
+        // ==========================================================================
+        function generatePDF() {
+            const nome = document.getElementById('nome').value || 'Cliente não informado';
+            const finalidadeSelect = document.getElementById('finalidade'); 
+            const finalidade = finalidadeSelect.options[finalidadeSelect.selectedIndex]?.text || 'Não informada'; 
+            const urgenciaSelect = document.getElementById('urgencia'); 
+            const urgencia = urgenciaSelect.options[urgenciaSelect.selectedIndex]?.text || 'Não informada'; 
+            const descricao = document.getElementById('descricao').value;
+
+            let itemsHtml = '';
+            let supportHtml = '';
+            let total = 0;
+
+            excelItems.forEach(item => {
+                const checkbox = document.getElementById(`item-${item.id}`);
+                if (checkbox && checkbox.checked) {
+                    let finalP = parseFloat(checkbox.getAttribute('data-price'));
+                    total += finalP;
+                    let itemDesc = item.description ? item.description.replace(/\n/g, '<br>') : 'Desenvolvimento e estruturação conforme necessidade e diretrizes aprovadas.';
+
+                    if(item.name.toLowerCase().includes('suporte')) {
+                        supportHtml += `<div style="margin-bottom: 15px;">
+                            <h4 style="margin: 0 0 5px 0; color: #34495e; font-size: 15px;">${item.name}</h4>
+                            <p style="margin: 0; font-size: 13px; color: #666; line-height: 1.5;">${itemDesc}</p>
+                            <p style="margin: 5px 0 0 0; font-size: 14px; font-weight: bold; color: #2c3e50;">Valor: R$ ${finalP.toFixed(2).replace('.', ',')}</p>
+                        </div>`;
+                    } else {
+                        itemsHtml += `<div style="margin-bottom: 20px;">
+                            <h4 style="margin: 0 0 5px 0; color: #34495e; font-size: 16px;">${item.name}</h4>
+                            <p style="margin: 0; font-size: 13px; color: #666; line-height: 1.5;">${itemDesc}</p>
+                            <p style="margin: 5px 0 0 0; font-size: 14px; font-weight: bold; color: #2c3e50;">Valor da Etapa: R$ ${finalP.toFixed(2).replace('.', ',')}</p>
+                        </div>`;
+                    }
+                }
+            });
+
+            if (itemsHtml === '' && supportHtml === '') {
+                showCustomAlert("Selecione ao menos um item de desenvolvimento para gerar o PDF.");
+                return;
+            }
+
+            if(supportHtml !== '') {
+                supportHtml = `<h3 style="color: #2c3e50; font-size: 18px; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px;">Suporte e Manutenção</h3>` + supportHtml;
+            }
+
+            let descHtml = descricao ? `<h3 style="color: #2c3e50; font-size: 18px; margin-top: 30px; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">Detalhes Adicionais</h3><p style="font-size: 14px; color: #555; line-height: 1.6;">${descricao.replace(/\n/g, '<br>')}</p>` : '';
+            const dataAtual = new Date().toLocaleDateString('pt-BR');
+
+            const content = `
+                <div style="padding: 40px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #333; background: #fff; max-width: 800px; margin: 0 auto;">
+                    <div style="text-align: center; margin-bottom: 40px;">
+                        <h1 style="color: #00cec9; text-transform: uppercase; font-size: 28px; margin: 0; letter-spacing: 1px;">Proposta Comercial</h1>
+                        <h2 style="color: #7f8c8d; font-size: 16px; margin: 5px 0 0 0; font-weight: normal;">Detalhamento de Escopo e Orçamento do Projeto</h2>
+                    </div>
+
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                        <p style="margin: 0 0 8px 0; font-size: 14px;"><strong>Cliente:</strong> ${nome}</p>
+                        <p style="margin: 0 0 8px 0; font-size: 14px;"><strong>Finalidade:</strong> ${finalidade}</p>
+                        <p style="margin: 0 0 8px 0; font-size: 14px;"><strong>Urgência:</strong> ${urgencia}</p>
+                        <p style="margin: 0; font-size: 14px;"><strong>Data:</strong> ${dataAtual}</p>
+                    </div>
+
+                    <h3 style="color: #2c3e50; font-size: 18px; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px;">Escopo do Projeto</h3>
+                    ${itemsHtml || '<p style="font-size: 13px; color: #666;">Nenhuma etapa de desenvolvimento selecionada.</p>'}
+
+                    ${supportHtml}
+                    ${descHtml}
+
+                    <div style="margin-top: 40px; padding: 20px; background: #fdfbf7; border-left: 5px solid #00cec9; border-radius: 4px;">
+                        <h2 style="margin: 0; color: #2c3e50; font-size: 22px;">Investimento Total: <span style="color: #00cec9;">R$ ${total.toFixed(2).replace('.', ',')}</span></h2>
+                    </div>
+
+                    <div style="margin-top: 50px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+                        <p style="font-size: 12px; color: #95a5a6; font-style: italic; margin: 0;">
+                            Valores baseados em pesquisa de mercado e complexidade do projeto.
+                        </p>
+                        <p style="font-size: 12px; color: #95a5a6; margin-top: 5px; font-weight: bold;">
+                            Excellent Services
+                        </p>
+                    </div>
+                </div>
+            `;
+
+            const opt = {
+                margin:       [0, 0, 0, 0],
+                filename:     `Orcamento_${nome.replace(/\s+/g, '_')}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(content).save().then(() => {
+                closeCheckoutModal();
+                showCustomAlert("Orçamento em PDF baixado com sucesso!", "Sucesso", true);
+            });
+        }
+
         let headerClicks = 0;
         document.getElementById('app-header').addEventListener('click', () => { headerClicks++; if (headerClicks === 10) { headerClicks = 0; changeScreen('admin-auth-screen'); } });
 
         function authenticateAdmin() {
-            if (document.getElementById('admin-password-input').value === ADMIN_PASSWORD) {
+            const pass = document.getElementById('admin-password-input').value;
+            if (pass === ADMIN_PASSWORD) {
+                isQuoteMode = false;
                 tempImageBase64 = null; tempAboutCoverBase64 = null; tempAboutProfileBase64 = null; tempNewCardBase64 = null; tempNewProdBase64 = null;
                 document.getElementById('admin-home-title').value = homeTexts.title || ""; document.getElementById('admin-home-desc').value = homeTexts.desc || ""; document.getElementById('admin-pkg-title').value = pkgTexts.title || ""; document.getElementById('admin-pkg-desc').value = pkgTexts.desc || "";
                 
@@ -1026,6 +1143,10 @@
 
                 renderAdminLists(); renderAdminPackages(); renderAdminAboutCards(); renderAdminProducts(); loadAdminPromoConfig();
                 changeScreen('admin-panel-screen'); document.getElementById('admin-password-input').value = "";
+            } else if (pass === "2301") {
+                isQuoteMode = true;
+                document.getElementById('admin-password-input').value = "";
+                openOrderScreen();
             } else { showCustomAlert("Senha incorreta."); }
         }
 
