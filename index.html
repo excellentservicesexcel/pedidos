@@ -36,165 +36,6 @@
         }
 
         /* ==========================================================================
-           TEMAS COMEMORATIVOS (BLACK FRIDAY, NATAL, PASCOA, ETC)
-           Ajuste Cirurgico: Aplicado ao BODY quando ativado no ADMIN
-           ========================================================================== */
-        
-        /* TEMA: BLACK FRIDAY */
-        body.theme-blackfriday {
-            --bg-dark: #000000;
-            --bg-app: #0a0a0a;
-            --header-bg: #111111;
-            --text-primary: #ffffff;
-            --text-secondary: #aaaaaa;
-            --primary-color: #ffffff;
-            --input-bg: #141414;
-            --input-border: #333333;
-            --success: #ffffff;
-            --danger: #ff0000;
-            --theme-bg-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" opacity="0.03"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="60" font-weight="bold" fill="%23FFFFFF" transform="rotate(-45 200 200)">BLACK FRIDAY</text></svg>');
-        }
-        body.theme-blackfriday .btn {
-            background-color: #ffffff;
-            color: #000000;
-            font-weight: 900;
-        }
-        body.theme-blackfriday .btn-home { background-color: #111; border-color: #333; }
-        body.theme-blackfriday .verde-agua { color: #ffffff; }
-
-        /* TEMA: NATAL (Modificado) */
-        body.theme-christmas {
-            --bg-dark: #061e0e; 
-            --bg-app: #0a2e15;
-            --header-bg: #041208;
-            --text-primary: #ffffff;
-            --text-secondary: #a3d9b4;
-            --primary-color: #e74c3c; 
-            --input-bg: #061e0e;
-            --input-border: #1a592c;
-            --success: #2ecc71;
-            --danger: #c0392b;
-            /* Fundo com árvores e estrela no topo */
-            --theme-bg-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" opacity="0.08"><path d="M100 30 L150 100 L120 100 L160 160 L40 160 L80 100 L50 100 Z" fill="%232ecc71"/><polygon points="100,10 105,20 115,20 107,27 110,37 100,31 90,37 93,27 85,20 95,20" fill="%23f1c40f"/></svg>');
-        }
-        body.theme-christmas .btn {
-            background-color: var(--primary-color);
-            color: #ffffff;
-        }
-        /* Animação Luzes Pisca-Pisca do Natal no Topo */
-        @keyframes piscaLuzes {
-            0%, 100% { filter: brightness(1) drop-shadow(0 0 5px #fff); }
-            50% { filter: brightness(0.4) drop-shadow(0 0 0px #fff); }
-        }
-        body.theme-christmas::before {
-            content: '💡🔴💡🟢💡🟡💡🔴💡🟢💡🟡💡🔴💡🟢💡🟡💡🔴💡🟢💡🟡💡🔴💡🟢💡🟡💡🔴💡🟢💡🟡💡🔴💡🟢💡🟡💡🔴💡🟢💡🟡';
-            position: fixed;
-            top: 0; left: 0; width: 100vw;
-            font-size: 20px; white-space: nowrap; overflow: hidden;
-            animation: piscaLuzes 1.2s infinite alternate;
-            z-index: 9999; pointer-events: none;
-            line-height: 1; text-align: center;
-        }
-
-        /* TEMA: PÁSCOA (Modificado) */
-        body.theme-easter {
-            --bg-dark: #2a1b38; 
-            --bg-app: #3d2b4f;
-            --header-bg: #21152c;
-            --text-primary: #fff0f5;
-            --text-secondary: #d1bfe0;
-            --primary-color: #ffb6c1; 
-            --input-bg: #2a1b38;
-            --input-border: #5b4275;
-            --success: #98fb98;
-            /* Fundo de Ovos Listrados */
-            --theme-bg-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.08"><ellipse cx="50" cy="50" rx="30" ry="40" fill="none" stroke="%23ffb6c1" stroke-width="4"/><path d="M25 50 Q50 20 75 50 M25 60 Q50 90 75 60" stroke="%23dda0dd" stroke-width="4" fill="none"/></svg>');
-        }
-        /* Animação Coelhos andando embaixo */
-        @keyframes coelhoAndando {
-            0% { transform: translateX(-15vw); }
-            100% { transform: translateX(110vw); }
-        }
-        body.theme-easter::after {
-            content: '🐇🐇';
-            position: fixed; bottom: 5px; left: 0;
-            font-size: 40px; letter-spacing: 25px;
-            animation: coelhoAndando 9s linear infinite;
-            z-index: 9999; pointer-events: none;
-        }
-
-        /* TEMA: DIA DAS MULHERES (Modificado) */
-        body.theme-womensday {
-            --bg-dark: #4a0000; /* Fundo Vermelho */
-            --bg-app: #660000;
-            --header-bg: #330000;
-            --primary-color: #ff69b4;
-            --input-bg: #4a0000;
-            --input-border: #990000;
-            /* Desenhos de Rosas */
-            --theme-bg-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" opacity="0.08"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="50">🌹</text></svg>');
-        }
-        /* Buque balançando embaixo */
-        @keyframes balancaFlores {
-            0%, 100% { transform: rotate(-8deg); }
-            50% { transform: rotate(8deg); }
-        }
-        body.theme-womensday::after {
-            content: '💐 🌹 💐 🌹 💐';
-            position: fixed; bottom: -5px; width: 100%;
-            display: flex; justify-content: space-around;
-            font-size: 50px;
-            animation: balancaFlores 3.5s ease-in-out infinite;
-            z-index: 9999; pointer-events: none;
-        }
-
-        /* TEMA: DIA DAS MÃES (Modificado) */
-        body.theme-mothersday {
-            --bg-dark: #2e0814;
-            --bg-app: #420f1f;
-            --header-bg: #1c040b;
-            --primary-color: #ff4d6d;
-            --input-bg: #2e0814;
-            --input-border: #6b1832;
-            /* Fundo com Girassol, Margaridas e Rosas */
-            --theme-bg-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" opacity="0.08"><text x="30%" y="30%" font-size="40">🌻</text><text x="70%" y="70%" font-size="40">🌼</text><text x="20%" y="80%" font-size="40">🌹</text></svg>');
-        }
-        /* Flores se mexendo embaixo */
-        body.theme-mothersday::after {
-            content: '🌻 🌹 🌼 🌻 🌹 🌼';
-            position: fixed; bottom: -5px; width: 100%;
-            display: flex; justify-content: space-around;
-            font-size: 45px;
-            animation: balancaFlores 4s ease-in-out infinite;
-            z-index: 9999; pointer-events: none;
-        }
-
-        /* TEMA: DIA DOS PAIS (Modificado) */
-        body.theme-fathersday {
-            --bg-dark: #0a192f;
-            --bg-app: #112240;
-            --header-bg: #020c1b;
-            --primary-color: #64ffda;
-            --input-bg: #0a192f;
-            --input-border: #233554;
-            /* Fundo de ternos/gravatas */
-            --theme-bg-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" opacity="0.06"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="50">👔</text></svg>');
-        }
-        /* Gravata se mexendo embaixo */
-        @keyframes gravataMexe {
-            0%, 100% { transform: translateY(0) rotate(-10deg); }
-            50% { transform: translateY(-10px) rotate(10deg); }
-        }
-        body.theme-fathersday::after {
-            content: '👔 👔 👔 👔 👔';
-            position: fixed; bottom: -5px; width: 100%;
-            display: flex; justify-content: space-around;
-            font-size: 45px;
-            animation: gravataMexe 3s ease-in-out infinite;
-            z-index: 9999; pointer-events: none;
-        }
-
-        /* ==========================================================================
            ESTRUTURA PRINCIPAL
            ========================================================================== */
         body {
@@ -854,7 +695,7 @@
                 <label>Descrição da Tela de Pacotes:</label><textarea id="admin-pkg-desc" placeholder="Ex: Escolha o combo ideal..." style="min-height: 60px;"></textarea>
             </div>
 
-            <div class="admin-section-divider">2. Promoções & Temas Festivos</div>
+            <div class="admin-section-divider">2. Promoções Especiais</div>
             <div class="admin-item-form">
                 <div class="switch-container">
                     <span style="font-size: 14px; color: var(--text-primary); font-weight:bold;">Ativar Promoção Especial?</span>
@@ -862,17 +703,6 @@
                 </div>
                 
                 <div id="promo-config-section">
-                    <label style="color: var(--primary-color); font-weight: bold;">Tema da Promoção (Datas Comemorativas):</label>
-                    <select id="promo-theme-select" style="margin-bottom: 15px; border-color: var(--primary-color);">
-                        <option value="default">Padrão (Dourado)</option>
-                        <option value="blackfriday">Black Friday</option>
-                        <option value="christmas">Natal</option>
-                        <option value="easter">Páscoa</option>
-                        <option value="womensday">Dia das Mulheres</option>
-                        <option value="mothersday">Dia das Mães</option>
-                        <option value="fathersday">Dia dos Pais</option>
-                    </select>
-
                     <label>Data de Fim da Promoção:</label><input type="date" id="promo-end-date" style="margin-bottom: 10px;">
                     <label>Horário de Fim (Separado):</label>
                     <div class="time-inputs">
@@ -928,7 +758,7 @@
                 <div id="admin-products-list" style="margin-top: 15px; border-top: 1px solid var(--input-border); padding-top: 10px;"></div>
             </div>
 
-            <button class="btn btn-master-save" onclick="saveAllAdminChanges()">💾 SALVAR TUDO</button>
+            <button class="btn btn-master-save" onclick="saveAllAdminChanges()">SALVAR TUDO</button>
             <button class="btn btn-outline" style="margin-bottom: 40px;" onclick="goBack('home-screen')">Sair sem Salvar</button>
         </div>
 
@@ -980,12 +810,11 @@
         let packages = [];
         let readyProducts = []; 
         
-        // Estrutura de promoção agora suporta THEME (Tema)
+        // Estrutura de promoção
         let promoConfig = { 
             active: false, 
             endTimestamp: null, 
-            discounts: {},
-            theme: 'default' 
+            discounts: {}
         };
         
         let isQuoteMode = false; // Flag para o modo de orçamento do admin
@@ -1038,7 +867,7 @@
         });
 
         // ==========================================================================
-        // MOTOR DE PROMOÇÃO E TEMAS (Verificação Contínua)
+        // MOTOR DE PROMOÇÃO (Verificação Contínua)
         // ==========================================================================
         function checkPromoStatus() {
             const promoBadge = document.getElementById('promo-badge-home');
@@ -1046,13 +875,9 @@
             if (!promoConfig.active || !promoConfig.endTimestamp) {
                 document.getElementById('promo-countdown').style.display = 'none'; 
                 promoBadge.style.display = 'none'; 
-                applyTheme('default'); // Retorna ao normal
                 return;
             }
             
-            // Aplica tema festivo ativo
-            applyTheme(promoConfig.theme || 'default');
-
             const now = new Date().getTime(); 
             const distance = promoConfig.endTimestamp - now;
             
@@ -1061,7 +886,6 @@
                 if(window.firebaseDb) window.firebaseSet(window.firebaseRef(window.firebaseDb, 'settings/promoConfig'), promoConfig);
                 document.getElementById('promo-countdown').style.display = 'none'; 
                 promoBadge.style.display = 'none';
-                applyTheme('default');
                 clearInterval(countdownInterval);
                 if(document.getElementById('order-screen').style.display === 'flex') renderExcelChecklist();
                 if(document.getElementById('packages-screen').style.display === 'flex') renderPackagesList();
@@ -1077,15 +901,6 @@
             document.getElementById('countdown-timer').innerText = `${days}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
             document.getElementById('promo-countdown').style.display = 'block'; 
             promoBadge.style.display = 'inline-block';
-        }
-
-        // Função para injetar a classe do tema no BODY
-        function applyTheme(themeName) {
-            const body = document.body;
-            body.className = ''; // Limpa themes antigos
-            if (themeName && themeName !== 'default') {
-                body.classList.add(`theme-${themeName}`);
-            }
         }
 
         function calculateItemPrice(item) {
@@ -1140,7 +955,7 @@
         }
 
         // ==========================================================================
-        // MOTOR DE SELEÇÃO E RESET (Ajustes Cirúrgicos de Separação)
+        // MOTOR DE SELEÇÃO E RESET
         // ==========================================================================
         
         // Limpa TODOS os Pacotes
@@ -1160,7 +975,7 @@
             });
         }
 
-        // Limpa TODOS os Personalizados (Ajuste solicitado)
+        // Limpa TODOS os Personalizados
         function resetCustomItems() {
             if (!excelItems) return;
             excelItems.forEach(item => {
@@ -1224,8 +1039,6 @@
             updateTotal();
         }
 
-        // Ajuste Cirúrgico: Cancela corretamente se clicar na segunda vez. 
-        // Desmarca os pacotes para evitar soma misturada.
         function toggleCustomItem(event, id) { 
             if(event && event.target.tagName === 'INPUT') return; 
             
@@ -1305,7 +1118,6 @@
             updateTotal();
         }
 
-        // Ajuste Cirúrgico: Regra de rádio para pacotes + zera personalizados
         function togglePackage(event, pkgId, colorHex) { 
             if(event && event.target.tagName === 'INPUT') return;
             
@@ -1453,7 +1265,7 @@
             var duration = 3 * 1000; 
             var animationEnd = Date.now() + duration; 
             
-            // Configurações Padrão
+            // Configurações Padrão de Confetes Dourados
             var defaults = { 
                 startVelocity: 30, 
                 spread: 360, 
@@ -1461,31 +1273,6 @@
                 zIndex: 1000, 
                 colors: ['#ffd700', '#e6c200', '#ffea00', '#ffffff'] 
             };
-
-            // Ajuste Cirúrgico: Altera visual do confete baseado no tema
-            const theme = promoConfig.theme || 'default';
-            if (theme === 'easter') {
-                defaults.colors = ['#ffb6c1', '#dda0dd', '#98fb98', '#ffdead'];
-                if(confetti.shapeFromText) {
-                    defaults.shapes = [confetti.shapeFromText({ text: '🥚', scalar: 2 }), confetti.shapeFromText({ text: '🐰', scalar: 2 })];
-                }
-            } else if (theme === 'christmas') {
-                defaults.colors = ['#ff0000', '#00ff00', '#ffffff'];
-                if(confetti.shapeFromText) {
-                    defaults.shapes = [confetti.shapeFromText({ text: '🍬', scalar: 2 }), confetti.shapeFromText({ text: '🎅', scalar: 2 }), confetti.shapeFromText({ text: '🎄', scalar: 2 })];
-                }
-            } else if (theme === 'blackfriday') {
-                defaults.colors = ['#000000', '#ffd700', '#ffffff'];
-            } else if (theme === 'womensday') {
-                defaults.colors = ['#ff69b4', '#ff1493', '#c71585'];
-                if(confetti.shapeFromText) defaults.shapes = [confetti.shapeFromText({ text: '🌹', scalar: 2 })];
-            } else if (theme === 'mothersday') {
-                defaults.colors = ['#ff4d6d', '#ff758f', '#ffb3c6'];
-                if(confetti.shapeFromText) defaults.shapes = [confetti.shapeFromText({ text: '💖', scalar: 2 })];
-            } else if (theme === 'fathersday') {
-                defaults.colors = ['#64ffda', '#112240', '#ffffff'];
-                if(confetti.shapeFromText) defaults.shapes = [confetti.shapeFromText({ text: '👔', scalar: 2 })];
-            }
 
             function randomInRange(min, max) { return Math.random() * (max - min) + min; }
             
@@ -1511,13 +1298,12 @@
         function openCheckoutModal() { 
             document.getElementById('checkout-modal').style.display = 'flex'; 
             
-            // Sempre dispara os confetes (agora com o tema certo) se for evento promocional
+            // Sempre dispara os confetes se for evento promocional
             if(promoConfig.active) { 
                 fireGoldenConfetti(); 
             } 
             
             const btnPdf = document.getElementById('btn-pdf');
-            // Só exibe a opção de PDF se estiver no modo de Orçamento E tela de personalizados
             if (btnPdf) {
                 if (isQuoteMode && document.getElementById('order-screen').style.display === 'flex') {
                     btnPdf.style.display = 'block';
@@ -1762,9 +1548,6 @@
         function loadAdminPromoConfig() { 
             document.getElementById('promo-toggle').checked = promoConfig.active; 
             togglePromoSection(); 
-            
-            // Carrega tema selecionado no admin
-            document.getElementById('promo-theme-select').value = promoConfig.theme || 'default';
 
             if (promoConfig.endTimestamp) { 
                 const d = new Date(promoConfig.endTimestamp); 
@@ -2166,15 +1949,13 @@
 
             const currentImage = tempImageBase64 || document.getElementById('editable-home-img').src;
 
-            // Configuração da Promoção (Incluindo Tema)
+            // Configuração da Promoção
             promoConfig.active = document.getElementById('promo-toggle').checked;
             
             if (promoConfig.active) {
                 const dateVal = document.getElementById('promo-end-date').value; 
                 const hVal = document.getElementById('promo-end-hour').value || 0; 
                 const mVal = document.getElementById('promo-end-minute').value || 0;
-                
-                promoConfig.theme = document.getElementById('promo-theme-select').value;
                 
                 if (!dateVal) { 
                     showCustomAlert("Para ativar a promoção, defina a Data de Fim."); 
@@ -2194,8 +1975,6 @@
                         delete promoConfig.discounts[item.id]; 
                     } 
                 });
-            } else {
-                promoConfig.theme = 'default';
             }
 
             // Envia para o Firebase
